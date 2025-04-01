@@ -84,7 +84,7 @@ router.post("/signup", async (req, res) => {
 
 
 // Example (Node.js/Express)
-router.get('/dashboard/activities', async (req, res) => {
+router.get('/dashboard/activities', auth, async (req, res) => {
   try {
     // Get recent 5 entries from each table
     const wasteEntries = await WasteEntry.find().sort({ created_at: -1 }).limit(5);

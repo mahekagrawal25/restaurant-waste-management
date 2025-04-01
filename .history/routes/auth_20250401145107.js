@@ -84,22 +84,45 @@ router.post("/signup", async (req, res) => {
 
 
 // Example (Node.js/Express)
+// New endpoint for detailed activities
 router.get('/dashboard/activities', async (req, res) => {
   try {
-    // Get recent 5 entries from each table
-    const wasteEntries = await WasteEntry.find().sort({ created_at: -1 }).limit(5);
-    const donations = await FoodDonation.find().sort({ created_at: -1 }).limit(5);
-    const collections = await WasteCollection.find().sort({ created_at: -1 }).limit(5);
+    // Get recent activities from all tables
+    const [wasteEntries, donations, collections] = await Promise.all([
+      WasteEntry.find().sort({ created_at: -1 }).limit(5),
+      FoodDonation.find().sort({ created_at: -1 }).limit(5),
+      WasteCollection.find().sort({ created_at: -1 }).limit(5)
+    ]);
 
-    // Combine and sort by date
+    // Format response
     const activities = [
-      ...wasteEntries.map(e => ({ ...e._doc, type: 'waste' })),
-      ...donations.map(d => ({ ...d._doc, type: 'donation' })),
-      ...collections.map(c => ({ ...c._doc, type: 'collection' }))
-    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 10);
+      ...wasteEntries.map(e => ({ 
+        type: 'waste',
+        description: e.description,
+        category: e.category,
+        quantity: e.quantity,
+        date: e.created_at
+      })),
+      ...donations.map(d => ({
+        type: 'donation',
+        description: d.description,
+        donor: d.donor_name,
+        quantity: d.quantity,
+        date: d.created_at
+      })),
+      ...collections.map(c => ({
+        type: 'collection',
+        description: c.description,
+        status: c.status,
+        pickup_date: c.pickup_date,
+        date: c.created_at
+      }))
+    ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     res.json(activities);
+    
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });

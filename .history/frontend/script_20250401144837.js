@@ -31,49 +31,25 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  // ✅ Corrected: Use the new table body ID
-  const activitiesTableBody = document.getElementById("activitiesTableBody");
-  
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
-    return;
-  }
-
   try {
-    const response = await fetch("http://localhost:5000/api/dashboard", {
+    const response = await fetch("http://localhost:5000/api/dashboard/activities", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const data = await response.json();
+    if (!response.ok) throw new Error(`Failed to load: ${response.status}`);
     
-    // ✅ Clear existing rows
-    activitiesTableBody.innerHTML = "";
+    const activities = await response.json();
+    console.log("Activities data:", activities); // Debugging
 
-    // ✅ Add sample data (replace with your actual data handling)
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td>🗑️ Waste</td>
-        <td>Plastic Bottles</td>
-        <td>Plastic</td>
-        <td>5 kg</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-      <tr>
-        <td>♻️ Donation</td>
-        <td>Food Supplies</td>
-        <td>Completed</td>
-        <td>10 items</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-    `;
+    // Render the table (as shown in previous examples)
+    renderActivitiesTable(activities);
 
   } catch (error) {
-    console.error("Error:", error);
-    activitiesTableBody.innerHTML = `
-      <tr><td colspan="5">Failed to load activities</td></tr>
+    console.error("Fetch error:", error);
+    // Show a user-friendly error message
+    document.getElementById("activitiesTableBody").innerHTML = `
+      <tr><td colspan="5">⚠️ Failed to load data. Try refreshing.</td></tr>
     `;
   }
 }

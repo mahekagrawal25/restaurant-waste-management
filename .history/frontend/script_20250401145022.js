@@ -31,51 +31,27 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  // ✅ Corrected: Use the new table body ID
-  const activitiesTableBody = document.getElementById("activitiesTableBody");
+  const endpoints = [
+    "/api/dashboard/activities",  // Try new endpoint first
+    "/api/dashboard"             // Fallback to old endpoint
+  ];
+
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(`http://localhost:5000${endpoint}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        renderActivities(data);  // Your rendering function
+        return;  // Exit if successful
+      }
+    } catch (e) { /* Continue to next endpoint */ }
+  }
   
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/dashboard", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const data = await response.json();
-    
-    // ✅ Clear existing rows
-    activitiesTableBody.innerHTML = "";
-
-    // ✅ Add sample data (replace with your actual data handling)
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td>🗑️ Waste</td>
-        <td>Plastic Bottles</td>
-        <td>Plastic</td>
-        <td>5 kg</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-      <tr>
-        <td>♻️ Donation</td>
-        <td>Food Supplies</td>
-        <td>Completed</td>
-        <td>10 items</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-    `;
-
-  } catch (error) {
-    console.error("Error:", error);
-    activitiesTableBody.innerHTML = `
-      <tr><td colspan="5">Failed to load activities</td></tr>
-    `;
-  }
+  showError("Failed to load activities");
 }
 // 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {

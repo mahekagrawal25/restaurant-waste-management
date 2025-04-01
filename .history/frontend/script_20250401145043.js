@@ -31,16 +31,11 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  // ✅ Corrected: Use the new table body ID
   const activitiesTableBody = document.getElementById("activitiesTableBody");
   
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
-    return;
-  }
-
   try {
-    const response = await fetch("http://localhost:5000/api/dashboard", {
+    // Use your existing endpoint
+    const response = await fetch("http://localhost:5000/api/dashboard/activ", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -49,31 +44,38 @@ async function loadDashboardData(token) {
 
     const data = await response.json();
     
-    // ✅ Clear existing rows
-    activitiesTableBody.innerHTML = "";
-
-    // ✅ Add sample data (replace with your actual data handling)
+    // Clear and show message if no data structure exists yet
     activitiesTableBody.innerHTML = `
       <tr>
+        <td colspan="5">Note: Backend needs update to show detailed activities. Currently showing counts only.</td>
+      </tr>
+      <tr>
         <td>🗑️ Waste</td>
-        <td>Plastic Bottles</td>
-        <td>Plastic</td>
-        <td>5 kg</td>
-        <td>${new Date().toLocaleDateString()}</td>
+        <td>Total Entries</td>
+        <td>-</td>
+        <td>${data.totalWaste || 0}</td>
+        <td>-</td>
       </tr>
       <tr>
         <td>♻️ Donation</td>
-        <td>Food Supplies</td>
-        <td>Completed</td>
-        <td>10 items</td>
-        <td>${new Date().toLocaleDateString()}</td>
+        <td>Total Donations</td>
+        <td>-</td>
+        <td>${data.totalDonations || 0}</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>🚛 Collection</td>
+        <td>Total Pickups</td>
+        <td>-</td>
+        <td>${data.totalCollections || 0}</td>
+        <td>-</td>
       </tr>
     `;
-
+    
   } catch (error) {
     console.error("Error:", error);
     activitiesTableBody.innerHTML = `
-      <tr><td colspan="5">Failed to load activities</td></tr>
+      <tr><td colspan="5">Failed to load data. Please check your connection.</td></tr>
     `;
   }
 }

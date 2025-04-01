@@ -31,50 +31,68 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  // ✅ Corrected: Use the new table body ID
   const activitiesTableBody = document.getElementById("activitiesTableBody");
   
   if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
+    console.error("Error: activitiesTableBody element not found");
     return;
   }
 
   try {
-    const response = await fetch("http://localhost:5000/api/dashboard", {
+    // Fetch all recent activities from your API
+    const response = await fetch("http://localhost:5000/api/dashboard/activities", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     });
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-    const data = await response.json();
-    
-    // ✅ Clear existing rows
+    const activities = await response.json();
+
+    // Clear existing content
     activitiesTableBody.innerHTML = "";
 
-    // ✅ Add sample data (replace with your actual data handling)
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td>🗑️ Waste</td>
-        <td>Plastic Bottles</td>
-        <td>Plastic</td>
-        <td>5 kg</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-      <tr>
-        <td>♻️ Donation</td>
-        <td>Food Supplies</td>
-        <td>Completed</td>
-        <td>10 items</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-    `;
+    // Process and display activities
+    if (activities.length === 0) {
+      activitiesTableBody.innerHTML = `<tr><td colspan="5">No recent activities found.</td></tr>`;
+      return;
+    }
+
+    activities.forEach(activity => {
+      const row = document.createElement("tr");
+      
+      // Determine activity type and icon
+      let type, icon, details;
+      if (activity.hasOwnProperty('category')) {
+        type = "Waste Entry";
+        icon = "🗑️";
+        details = activity.category;
+      } else if (activity.hasOwnProperty('donor_name')) {
+        type = "Donation";
+        icon = "♻️";
+        details = `Donor: ${activity.donor_name}`;
+      } else if (activity.hasOwnProperty('status')) {
+        type = "Collection";
+        icon = "🚛";
+        details = activity.status;
+      }
+
+      // Format date (assuming created_at exists in all tables)
+      const date = new Date(activity.created_at).toLocaleDateString();
+
+      row.innerHTML = `
+        <td>${icon} ${type}</td>
+        <td>${activity.description}</td>
+        <td>${details}</td>
+        <td>${activity.quantity || '-'}</td>
+        <td>${date}</td>
+      `;
+      activitiesTableBody.appendChild(row);
+    });
 
   } catch (error) {
-    console.error("Error:", error);
-    activitiesTableBody.innerHTML = `
-      <tr><td colspan="5">Failed to load activities</td></tr>
-    `;
+    console.error("Error loading activities:", error);
+    activitiesTableBody.innerHTML = `<tr><td colspan="5">Failed to load activities. Please try again later.</td></tr>`;
   }
 }
 // 🌟 Login form submission

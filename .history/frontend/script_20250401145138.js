@@ -31,11 +31,13 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  // ✅ Corrected: Use the new table body ID
-  const activitiesTableBody = document.getElementById("activitiesTableBody");
-  
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
+  const activitiesContainer = document.getElementById("recentActivities");
+  const wasteCountElement = document.getElementById("wasteCount");
+  const donationCountElement = document.getElementById("donationCount");
+  const pickupCountElement = document.getElementById("pickupCount");
+
+  if (!activitiesContainer) {
+    console.error("Error: recentActivities element not found in DOM");
     return;
   }
 
@@ -45,38 +47,32 @@ async function loadDashboardData(token) {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      if (response.status === 401) {
+        console.log("Token expired or invalid. Redirecting to login...");
+        logoutUser();
+      }
+      throw new Error(`Failed to fetch data: ${response.status}`);
+    }
 
-    const data = await response.json();
-    
-    // ✅ Clear existing rows
-    activitiesTableBody.innerHTML = "";
+    const stats = await response.json();
 
-    // ✅ Add sample data (replace with your actual data handling)
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td>🗑️ Waste</td>
-        <td>Plastic Bottles</td>
-        <td>Plastic</td>
-        <td>5 kg</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
-      <tr>
-        <td>♻️ Donation</td>
-        <td>Food Supplies</td>
-        <td>Completed</td>
-        <td>10 items</td>
-        <td>${new Date().toLocaleDateString()}</td>
-      </tr>
+    // ✅ Update the dashboard with fetched data if elements exist
+    if (wasteCountElement) wasteCountElement.textContent = stats.totalWaste || 0;
+    if (donationCountElement) donationCountElement.textContent = stats.totalDonations || 0;
+    if (pickupCountElement) pickupCountElement.textContent = stats.totalCollections || 0;
+
+    activitiesContainer.innerHTML = `
+      <p>Waste entries: ${stats.totalWaste}</p>
+      <p>Donations: ${stats.totalDonations}</p>
+      <p>Pickups: ${stats.totalCollections}</p>
     `;
-
   } catch (error) {
-    console.error("Error:", error);
-    activitiesTableBody.innerHTML = `
-      <tr><td colspan="5">Failed to load activities</td></tr>
-    `;
+    console.error("Error loading data:", error);
+    activitiesContainer.innerHTML = `<p class="error-msg">Failed to load data. Please try again later.</p>`;
   }
 }
+
 // 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();

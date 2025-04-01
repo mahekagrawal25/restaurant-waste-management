@@ -63,26 +63,53 @@
 
   <!-- 🗃️ Recent Activities -->
   <!-- 🗃️ Recent Activities -->
-<!-- Recent Activities Section -->
-<section class="recent-activities">
-  <h2>Recent Activities</h2>
-  <div class="activities-table-container">
-    <table id="activitiesTable">
-      <thead>
+  async function loadDashboardData(token) {
+    // ✅ Corrected: Use the new table body ID
+    const activitiesTableBody = document.getElementById("activitiesTableBody");
+    
+    if (!activitiesTableBody) {
+      console.error("Error: Couldn't find the activities table");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/dashboard", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+  
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  
+      const data = await response.json();
+      
+      // ✅ Clear existing rows
+      activitiesTableBody.innerHTML = "";
+  
+      // ✅ Add sample data (replace with your actual data handling)
+      activitiesTableBody.innerHTML = `
         <tr>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Category/Status</th>
-          <th>Quantity</th>
-          <th>Date</th>
+          <td>🗑️ Waste</td>
+          <td>Plastic Bottles</td>
+          <td>Plastic</td>
+          <td>5 kg</td>
+          <td>${new Date().toLocaleDateString()}</td>
         </tr>
-      </thead>
-      <tbody id="activitiesTableBody">  <!-- This is the element we're targeting -->
-        <!-- Data will be inserted here by JavaScript -->
-      </tbody>
-    </table>
-  </div>
-</section>
+        <tr>
+          <td>♻️ Donation</td>
+          <td>Food Supplies</td>
+          <td>Completed</td>
+          <td>10 items</td>
+          <td>${new Date().toLocaleDateString()}</td>
+        </tr>
+      `;
+  
+    } catch (error) {
+      console.error("Error:", error);
+      activitiesTableBody.innerHTML = `
+        <tr><td colspan="5">Failed to load activities</td></tr>
+      `;
+    }
+  }
   
 </main>
 

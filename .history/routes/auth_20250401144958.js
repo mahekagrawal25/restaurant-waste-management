@@ -84,23 +84,23 @@ router.post("/signup", async (req, res) => {
 
 
 // Example (Node.js/Express)
+// New endpoint for detailed activities
+// In your routes file (e.g., routes/dashboard.js)
 router.get('/dashboard/activities', async (req, res) => {
   try {
-    // Get recent 5 entries from each table
-    const wasteEntries = await WasteEntry.find().sort({ created_at: -1 }).limit(5);
-    const donations = await FoodDonation.find().sort({ created_at: -1 }).limit(5);
-    const collections = await WasteCollection.find().sort({ created_at: -1 }).limit(5);
-
-    // Combine and sort by date
-    const activities = [
-      ...wasteEntries.map(e => ({ ...e._doc, type: 'waste' })),
-      ...donations.map(d => ({ ...d._doc, type: 'donation' })),
-      ...collections.map(c => ({ ...c._doc, type: 'collection' }))
-    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 10);
-
-    res.json(activities);
+    const activities = await Promise.all([
+      WasteEntry.find().sort({ created_at: -1 }).limit(5),
+      FoodDonation.find().sort({ created_at: -1 }).limit(5),
+      WasteCollection.find().sort({ created_at: -1 }).limit(5)
+    ]);
+    
+    res.json({
+      waste: activities[0],
+      donations: activities[1],
+      collections: activities[2]
+    });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 });
 module.exports = router;
