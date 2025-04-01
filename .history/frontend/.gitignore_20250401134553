@@ -1,0 +1,14 @@
+# Node.js
+node_modules
+.env
+package-lock.json
+*.log
+*.zip
+
+# IDE / Editor files
+.vscode
+.DS_Store
+
+# Backup files
+*.bak
+*.tmp
