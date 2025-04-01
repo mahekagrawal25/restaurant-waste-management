@@ -231,20 +231,18 @@ nav a:hover {
 
 
 
-/* Activities Table Styles */
+/* Add to your style.css */
 .activities-table-container {
   overflow-x: auto;
-  margin-top: 1rem;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 1rem;
+  margin-top: 1rem;
 }
 
 #activitiesTable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
 }
 
 #activitiesTable th {
@@ -252,10 +250,11 @@ nav a:hover {
   padding: 12px 15px;
   text-align: left;
   font-weight: 600;
+  color: #495057;
 }
 
 #activitiesTable td {
-  padding: 10px 15px;
+  padding: 12px 15px;
   border-bottom: 1px solid #e9ecef;
 }
 
@@ -270,4 +269,8 @@ nav a:hover {
 
 .error {
   color: #dc3545;
+}
+
+.fa-spinner {
+  margin-right: 8px;
 }

@@ -29,7 +29,11 @@ function handleRedirection(token, isDashboard, isLogin) {
   }
 }
 
-// 🔥 Load dashboard data with error handling
+
+// 🔥 Load dashboard data with error handling (UPDATED VERSION)
+
+
+
 async function loadDashboardData(token) {
   const activitiesTableBody = document.getElementById("activitiesTableBody");
   
@@ -46,69 +50,84 @@ async function loadDashboardData(token) {
       </tr>
     `;
 
-    // Fetch combined activities
-    const response = await fetch("http://localhost:5000/api/auth/dashboard/activities", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    // Fetch data from all endpoints in parallel
+    const [wasteRes, donationsRes, collectionsRes] = await Promise.all([
+      fetch("http://localhost:5000/api/waste-entries?limit=3", {
+        headers: { Authorization: `Bearer ${token}` }
+      }),
+      fetch("http://localhost:5000/api/food-donations?limit=3", {
+        headers: { Authorization: `Bearer ${token}` }
+      }),
+      fetch("http://localhost:5000/api/waste-collection?limit=3", {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+    ]);
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    // Check all responses
+    if (!wasteRes.ok || !donationsRes.ok || !collectionsRes.ok) {
+      throw new Error("Failed to fetch some data");
+    }
 
-    const activities = await response.json();
-    
-    // Clear loading state
+    // Parse responses
+    const [wasteEntries, foodDonations, wasteCollections] = await Promise.all([
+      wasteRes.json(),
+      donationsRes.json(),
+      collectionsRes.json()
+    ]);
+
+    // Clear table
     activitiesTableBody.innerHTML = "";
 
-    // Process and display activities
-    if (activities.length === 0) {
+    // Process Waste Entries
+    wasteEntries.forEach(entry => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>🗑️ Waste</td>
+        <td>${entry.description}</td>
+        <td>${entry.category}</td>
+        <td>${entry.quantity} ${entry.category === 'Food' ? 'kg' : 'units'}</td>
+        <td>${new Date(entry.created_at).toLocaleDateString()}</td>
+      `;
+      activitiesTableBody.appendChild(row);
+    });
+
+    // Process Food Donations
+    foodDonations.forEach(donation => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>♻️ Donation</td>
+        <td>${donation.description}</td>
+        <td>Donor: ${donation.donor_name}</td>
+        <td>${donation.quantity} items</td>
+        <td>${new Date(donation.created_at).toLocaleDateString()}</td>
+      `;
+      activitiesTableBody.appendChild(row);
+    });
+
+    // Process Waste Collections
+    wasteCollections.forEach(collection => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>🚛 Collection</td>
+        <td>${collection.description}</td>
+        <td>${collection.status}</td>
+        <td>-</td>
+        <td>${new Date(collection.pickup_date).toLocaleDateString()}</td>
+      `;
+      activitiesTableBody.appendChild(row);
+    });
+
+    // If no data found
+    if (activitiesTableBody.children.length === 0) {
       activitiesTableBody.innerHTML = `
         <tr>
           <td colspan="5">No recent activities found</td>
         </tr>
       `;
-      return;
     }
 
-    activities.forEach(activity => {
-      const row = document.createElement("tr");
-      
-      // Common fields
-      const date = new Date(activity.created_at).toLocaleDateString();
-      
-      // Type-specific rendering
-      if (activity.type === 'waste') {
-        row.innerHTML = `
-          <td>🗑️ Waste</td>
-          <td>${activity.description}</td>
-          <td>${activity.category}</td>
-          <td>${activity.quantity} ${activity.category === 'Food' ? 'kg' : 'units'}</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'donation') {
-        row.innerHTML = `
-          <td>♻️ Donation</td>
-          <td>${activity.description}</td>
-          <td>Donor: ${activity.donor_name}</td>
-          <td>${activity.quantity} items</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'collection') {
-        row.innerHTML = `
-          <td>🚛 Collection</td>
-          <td>${activity.description}</td>
-          <td>${activity.status}</td>
-          <td>-</td>
-          <td>${new Date(activity.pickup_date).toLocaleDateString()}</td>
-        `;
-      }
-
-      activitiesTableBody.appendChild(row);
-    });
-
   } catch (error) {
-    console.error("Error loading activities:", error);
+    console.error("Error loading data:", error);
     activitiesTableBody.innerHTML = `
       <tr>
         <td colspan="5" class="error">Failed to load activities. Please try again.</td>

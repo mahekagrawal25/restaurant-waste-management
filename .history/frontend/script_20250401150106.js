@@ -42,47 +42,40 @@ async function loadDashboardData(token) {
     // Show loading state
     activitiesTableBody.innerHTML = `
       <tr>
-        <td colspan="5" class="loading">Loading activities...</td>
+        <td colspan="5" class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Loading activities...
+        </td>
       </tr>
     `;
 
-    // Fetch combined activities
-    const response = await fetch("http://localhost:5000/api/auth/dashboard/activities", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    // Fetch data from all endpoints
+    const [wasteEntries, donations, collections] = await Promise.all([
+      fetchData('http://localhost:5000/api/waste-entries', token),
+      fetchData('http://localhost:5000/api/food-donations', token),
+      fetchData('http://localhost:5000/api/waste-collection', token)
+    ]);
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const activities = await response.json();
+    // Clear and display data
+    activitiesTableBody.innerHTML = '';
     
-    // Clear loading state
-    activitiesTableBody.innerHTML = "";
+    // Combine all activities with type identifiers
+    const allActivities = [
+      ...wasteEntries.map(item => ({ ...item, type: 'waste' })),
+      ...donations.map(item => ({ ...item, type: 'donation' })),
+      ...collections.map(item => ({ ...item, type: 'collection' }))
+    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-    // Process and display activities
-    if (activities.length === 0) {
-      activitiesTableBody.innerHTML = `
-        <tr>
-          <td colspan="5">No recent activities found</td>
-        </tr>
-      `;
-      return;
-    }
-
-    activities.forEach(activity => {
+    // Display each activity
+    allActivities.forEach(activity => {
       const row = document.createElement("tr");
       
-      // Common fields
-      const date = new Date(activity.created_at).toLocaleDateString();
-      
-      // Type-specific rendering
       if (activity.type === 'waste') {
         row.innerHTML = `
           <td>🗑️ Waste</td>
           <td>${activity.description}</td>
           <td>${activity.category}</td>
           <td>${activity.quantity} ${activity.category === 'Food' ? 'kg' : 'units'}</td>
-          <td>${date}</td>
+          <td>${formatDate(activity.created_at)}</td>
         `;
       } 
       else if (activity.type === 'donation') {
@@ -91,30 +84,55 @@ async function loadDashboardData(token) {
           <td>${activity.description}</td>
           <td>Donor: ${activity.donor_name}</td>
           <td>${activity.quantity} items</td>
-          <td>${date}</td>
+          <td>${formatDate(activity.created_at)}</td>
         `;
-      } 
+      }
       else if (activity.type === 'collection') {
         row.innerHTML = `
           <td>🚛 Collection</td>
           <td>${activity.description}</td>
           <td>${activity.status}</td>
-          <td>-</td>
-          <td>${new Date(activity.pickup_date).toLocaleDateString()}</td>
+          <td>${activity.collector_name || '-'}</td>
+          <td>${formatDate(activity.pickup_date)}</td>
         `;
       }
 
       activitiesTableBody.appendChild(row);
     });
 
+    if (allActivities.length === 0) {
+      activitiesTableBody.innerHTML = `
+        <tr>
+          <td colspan="5">No activities found</td>
+        </tr>
+      `;
+    }
+
   } catch (error) {
-    console.error("Error loading activities:", error);
+    console.error("Error loading data:", error);
     activitiesTableBody.innerHTML = `
       <tr>
-        <td colspan="5" class="error">Failed to load activities. Please try again.</td>
+        <td colspan="5" class="error">
+          <i class="fas fa-exclamation-circle"></i> Failed to load activities
+        </td>
       </tr>
     `;
   }
+}
+
+// Helper function to fetch data
+async function fetchData(url, token) {
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!response.ok) throw new Error(`Failed to fetch from ${url}`);
+  return await response.json();
+}
+
+// Helper function to format dates
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
 }
 // 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {

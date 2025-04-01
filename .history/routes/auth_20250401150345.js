@@ -86,33 +86,24 @@ router.post("/signup", async (req, res) => {
 // Example (Node.js/Express)
 router.get('/dashboard/activities', async (req, res) => {
   try {
-    // Get recent 3 entries from each table using your MySQL pool
-    const [wasteEntries] = await pool.query(
-      'SELECT * FROM waste_entries ORDER BY created_at DESC LIMIT 3'
-    );
-    
-    const [donations] = await pool.query(
-      'SELECT * FROM food_donations ORDER BY created_at DESC LIMIT 3'
-    );
-    
-    const [collections] = await pool.query(
-      'SELECT * FROM waste_collection ORDER BY created_at DESC LIMIT 3'
-    );
+    // Get recent 5 entries from each table
+    const wasteEntries = await WasteEntry.find().sort({ created_at: -1 }).limit(5);
+    const donations = await FoodDonation.find().sort({ created_at: -1 }).limit(5);
+    const collections = await WasteCollection.find().sort({ created_at: -1 }).limit(5);
 
-    // Combine and format the data
+    // Combine and sort by date
     const activities = [
-      ...wasteEntries.map(e => ({ ...e, type: 'waste' })),
-      ...donations.map(d => ({ ...d, type: 'donation' })),
-      ...collections.map(c => ({ ...c, type: 'collection' }))
-    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      ...wasteEntries.map(e => ({ ...e._doc, type: 'waste' })),
+      ...donations.map(d => ({ ...d._doc, type: 'donation' })),
+      ...collections.map(c => ({ ...c._doc, type: 'collection' }))
+    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 10);
 
     res.json(activities);
-    
   } catch (err) {
-    console.error('Error fetching activities:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 

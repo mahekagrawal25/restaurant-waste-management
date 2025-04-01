@@ -33,86 +33,39 @@ function handleRedirection(token, isDashboard, isLogin) {
 async function loadDashboardData(token) {
   const activitiesTableBody = document.getElementById("activitiesTableBody");
   
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
-    return;
-  }
-
   try {
     // Show loading state
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td colspan="5" class="loading">Loading activities...</td>
-      </tr>
-    `;
+    activitiesTableBody.innerHTML = `<tr><td colspan="5" class="loading">Loading...</td></tr>`;
 
-    // Fetch combined activities
-    const response = await fetch("http://localhost:5000/api/auth/dashboard/activities", {
-      method: "GET",
+    // Use existing endpoint
+    const response = await fetch("http://localhost:5000/api/dashboard", {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) throw new Error("Failed to fetch data");
 
-    const activities = await response.json();
+    const data = await response.json();
     
-    // Clear loading state
-    activitiesTableBody.innerHTML = "";
-
-    // Process and display activities
-    if (activities.length === 0) {
-      activitiesTableBody.innerHTML = `
-        <tr>
-          <td colspan="5">No recent activities found</td>
-        </tr>
-      `;
-      return;
-    }
-
-    activities.forEach(activity => {
-      const row = document.createElement("tr");
-      
-      // Common fields
-      const date = new Date(activity.created_at).toLocaleDateString();
-      
-      // Type-specific rendering
-      if (activity.type === 'waste') {
-        row.innerHTML = `
-          <td>🗑️ Waste</td>
-          <td>${activity.description}</td>
-          <td>${activity.category}</td>
-          <td>${activity.quantity} ${activity.category === 'Food' ? 'kg' : 'units'}</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'donation') {
-        row.innerHTML = `
-          <td>♻️ Donation</td>
-          <td>${activity.description}</td>
-          <td>Donor: ${activity.donor_name}</td>
-          <td>${activity.quantity} items</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'collection') {
-        row.innerHTML = `
-          <td>🚛 Collection</td>
-          <td>${activity.description}</td>
-          <td>${activity.status}</td>
-          <td>-</td>
-          <td>${new Date(activity.pickup_date).toLocaleDateString()}</td>
-        `;
-      }
-
-      activitiesTableBody.appendChild(row);
-    });
-
-  } catch (error) {
-    console.error("Error loading activities:", error);
+    // Display data in table format
     activitiesTableBody.innerHTML = `
       <tr>
-        <td colspan="5" class="error">Failed to load activities. Please try again.</td>
+        <td>🗑️ Waste Entries</td>
+        <td colspan="4">Total: ${data.totalWaste || 0}</td>
       </tr>
+      <tr>
+        <td>♻️ Donations</td>
+        <td colspan="4">Total: ${data.totalDonations || 0}</td>
+      </tr>
+      <tr>
+        <td>🚛 Collections</td>
+        <td colspan="4">Total: ${data.totalCollections || 0}</td>
+      </tr>
+    `;
+
+  } catch (error) {
+    console.error("Error:", error);
+    activitiesTableBody.innerHTML = `
+      <tr><td colspan="5" class="error">Data unavailable</td></tr>
     `;
   }
 }

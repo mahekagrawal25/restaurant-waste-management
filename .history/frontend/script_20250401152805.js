@@ -47,7 +47,7 @@ async function loadDashboardData(token) {
     `;
 
     // Fetch combined activities
-    const response = await fetch("http://localhost:5000/api/auth/dashboard/activities", {
+    const response = await fetch("http://localhost:5000/api/dashboard/activities", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     });

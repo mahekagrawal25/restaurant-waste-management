@@ -31,91 +31,48 @@ function handleRedirection(token, isDashboard, isLogin) {
 
 // 🔥 Load dashboard data with error handling
 async function loadDashboardData(token) {
-  const activitiesTableBody = document.getElementById("activitiesTableBody");
-  
-  if (!activitiesTableBody) {
-    console.error("Error: Couldn't find the activities table");
+  const activitiesContainer = document.getElementById("recentActivities");
+  const wasteCountElement = document.getElementById("wasteCount");
+  const donationCountElement = document.getElementById("donationCount");
+  const pickupCountElement = document.getElementById("pickupCount");
+
+  if (!activitiesContainer) {
+    console.error("Error: recentActivities element not found in DOM");
     return;
   }
 
   try {
-    // Show loading state
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td colspan="5" class="loading">Loading activities...</td>
-      </tr>
-    `;
-
-    // Fetch combined activities
-    const response = await fetch("http://localhost:5000/api/auth/dashboard/activities", {
+    const response = await fetch("http://localhost:5000/api/dashboard", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const activities = await response.json();
-    
-    // Clear loading state
-    activitiesTableBody.innerHTML = "";
-
-    // Process and display activities
-    if (activities.length === 0) {
-      activitiesTableBody.innerHTML = `
-        <tr>
-          <td colspan="5">No recent activities found</td>
-        </tr>
-      `;
-      return;
+    if (!response.ok) {
+      if (response.status === 401) {
+        console.log("Token expired or invalid. Redirecting to login...");
+        logoutUser();
+      }
+      throw new Error(`Failed to fetch data: ${response.status}`);
     }
 
-    activities.forEach(activity => {
-      const row = document.createElement("tr");
-      
-      // Common fields
-      const date = new Date(activity.created_at).toLocaleDateString();
-      
-      // Type-specific rendering
-      if (activity.type === 'waste') {
-        row.innerHTML = `
-          <td>🗑️ Waste</td>
-          <td>${activity.description}</td>
-          <td>${activity.category}</td>
-          <td>${activity.quantity} ${activity.category === 'Food' ? 'kg' : 'units'}</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'donation') {
-        row.innerHTML = `
-          <td>♻️ Donation</td>
-          <td>${activity.description}</td>
-          <td>Donor: ${activity.donor_name}</td>
-          <td>${activity.quantity} items</td>
-          <td>${date}</td>
-        `;
-      } 
-      else if (activity.type === 'collection') {
-        row.innerHTML = `
-          <td>🚛 Collection</td>
-          <td>${activity.description}</td>
-          <td>${activity.status}</td>
-          <td>-</td>
-          <td>${new Date(activity.pickup_date).toLocaleDateString()}</td>
-        `;
-      }
+    const stats = await response.json();
 
-      activitiesTableBody.appendChild(row);
-    });
+    // ✅ Update the dashboard with fetched data if elements exist
+    if (wasteCountElement) wasteCountElement.textContent = stats.totalWaste || 0;
+    if (donationCountElement) donationCountElement.textContent = stats.totalDonations || 0;
+    if (pickupCountElement) pickupCountElement.textContent = stats.totalCollections || 0;
 
-  } catch (error) {
-    console.error("Error loading activities:", error);
-    activitiesTableBody.innerHTML = `
-      <tr>
-        <td colspan="5" class="error">Failed to load activities. Please try again.</td>
-      </tr>
+    activitiesContainer.innerHTML = `
+      <p>Waste entries: ${stats.totalWaste}</p>
+      <p>Donations: ${stats.totalDonations}</p>
+      <p>Pickups: ${stats.totalCollections}</p>
     `;
+  } catch (error) {
+    console.error("Error loading data:", error);
+    activitiesContainer.innerHTML = `<p class="error-msg">Failed to load data. Please try again later.</p>`;
   }
 }
+
 // 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
