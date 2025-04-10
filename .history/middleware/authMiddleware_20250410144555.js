@@ -16,5 +16,16 @@ function authenticateToken(req, res, next) {
 }
 
 
-
+// authMiddleware.js
+function ensureRole(role) {
+    return (req, res, next) => {
+      if (req.session.user && req.session.user.role === role) {
+        return next();
+      }
+      return res.status(403).send('Access denied. Unauthorized role.');
+    };
+  }
+  
+  module.exports = { ensureRole };
+  
 module.exports = authenticateToken;

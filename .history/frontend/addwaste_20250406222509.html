@@ -1,0 +1,51 @@
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevent scroll */
+    font-family: 'Poppins', sans-serif;
+    background: url('./images/restro10.jpeg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .page-wrapper {
+    height: calc(100vh - 80px); /* Full height minus navbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .waste-card {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 650px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+  }
+
+  .card-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .card-header h1 {
+    font-size: 2rem;
+    margin: 10px 0;
+  }
+
+  .card-header p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .footer {
+    display: none; /* Hiding footer to keep layout clean with no scroll */
+  }
+</style>

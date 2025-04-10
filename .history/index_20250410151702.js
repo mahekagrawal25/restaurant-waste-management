@@ -46,18 +46,12 @@ app.post("/api/auth/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-
     // ✅ Include `role` in the token for better authorization management
     const token = jwt.sign(
       { id: user[0].id, email: user[0].email, role: user[0].role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-
-    // ✅ Store user info in session
-    req.session.user_id = user.id;
-    req.session.role = user.role;
-    req.session.username = user.username;
 
     res.json({
       message: "Login successful",

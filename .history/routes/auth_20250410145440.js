@@ -6,54 +6,6 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
-
-    if (rows.length === 0) {
-      return res.status(401).json({ message: "Invalid email" });
-    }
-
-    const user = rows[0];
-    const isMatch = await bcrypt.compare(password, user.password_hash);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
-
-    // Create JWT with user info
-    const token = jwt.sign(
-      {
-        id: user.id,
-        role: user.role,
-        username: user.username,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    // ✅ Send role back so frontend can redirect accordingly
-    res.json({
-      message: "Login successful",
-      token,
-      username: user.username,
-      role: user.role,
-    });
-
-  } catch (error) {
-    console.error("Error in /login route:", error);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
 
 
 router.post("/signup", async (req, res) => {

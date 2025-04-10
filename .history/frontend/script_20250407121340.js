@@ -117,7 +117,6 @@ async function loadDashboardData(token) {
   }
 }
 // 🌟 Login form submission
-// 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   
@@ -135,48 +134,26 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
     const data = await response.json();
 
     if (response.ok) {
-      // Save token and user details
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
-      localStorage.setItem("role", data.role); // ✅ Save role too
 
       message.textContent = "Login successful! Redirecting...";
       message.classList.remove("text-red-500");
       message.classList.add("text-green-500");
 
-      // ✅ Role-based redirection
       setTimeout(() => {
-        switch (data.role) {
-          case "admin":
-            window.location.href = "admin_dashboard.html";
-            break;
-          case "restaurant":
-            window.location.href = "restaurant_dashboard.html";
-            break;
-          case "waste_collector":
-            window.location.href = "collector_dashboard.html";
-            break;
-          case "ngo":
-            window.location.href = "ngo_dashboard.html";
-            break;
-          default:
-            alert("Unknown role. Contact support.");
-        }
+        window.location.href = "dashboard.html";
       }, 1500);
-      
     } else {
       message.textContent = data.message || "Invalid credentials.";
-      message.classList.remove("text-green-500");
       message.classList.add("text-red-500");
     }
   } catch (error) {
     console.error("Server error:", error);
     message.textContent = "Server error. Please try again later.";
-    message.classList.remove("text-green-500");
     message.classList.add("text-red-500");
   }
 });
-
 
 // 🚀 Logout handler
 document.getElementById("logoutBtn")?.addEventListener("click", logoutUser);
@@ -194,11 +171,10 @@ document.getElementById("signupForm")?.addEventListener("submit", async (event) 
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
-  const role = document.getElementById("role").value;  // ✅ GET role
   const message = document.getElementById("signupMessage");
 
   // ✅ Basic validation
-  if (!username || !email || !password || !role) {
+  if (!username || !email || !password) {
     message.textContent = "All fields are required.";
     message.classList.add("text-red-500");
     return;
@@ -208,7 +184,7 @@ document.getElementById("signupForm")?.addEventListener("submit", async (event) 
     const response = await fetch("http://localhost:5000/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password, role }), // ✅ INCLUDE role
+      body: JSON.stringify({ username, email, password }),
     });
 
     const data = await response.json();
@@ -230,5 +206,46 @@ document.getElementById("signupForm")?.addEventListener("submit", async (event) 
     message.textContent = "Server error. Please try again later.";
     message.classList.add("text-red-500");
   }
-  
 });
+
+
+
+
+
+//Add waste page
+
+document.getElementById('addWasteForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const description = document.getElementById('description').value;
+  const category = document.getElementById('category').value;
+  const quantity = document.getElementById('quantity').value;
+  const image_url = document.getElementById('image_url').value;
+
+  // Optional: retrieve user info/token from localStorage/session
+  const token = localStorage.getItem('authToken'); // assuming you're storing it
+
+  const response = await fetch('http://localhost:5000/api/waste-entries', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` // if using JWT
+    },
+    body: JSON.stringify({
+      description,
+      category,
+      quantity,
+      image_url: image_url || null
+    })
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert('Waste entry added successfully!');
+    document.getElementById('addWasteForm').reset();
+  } else {
+    alert(`Error: ${result.message}`);
+  }
+});
+

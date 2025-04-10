@@ -117,7 +117,6 @@ async function loadDashboardData(token) {
   }
 }
 // 🌟 Login form submission
-// 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   
@@ -178,15 +177,6 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
 });
 
 
-// 🚀 Logout handler
-document.getElementById("logoutBtn")?.addEventListener("click", logoutUser);
-
-function logoutUser() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("username");
-  window.location.href = "index.html";
-}
-
 // ✅ Signup form submission
 document.getElementById("signupForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -230,5 +220,5 @@ document.getElementById("signupForm")?.addEventListener("submit", async (event) 
     message.textContent = "Server error. Please try again later.";
     message.classList.add("text-red-500");
   }
-  
+
 });

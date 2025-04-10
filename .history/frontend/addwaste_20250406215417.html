@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Waste - WasteManager</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">WasteManager</div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="waste-records.html" class="active">Waste Records</a>
+      <a href="history.html">History</a>
+      <a href="donations.html">Donations</a>
+    </nav>
+    <button id="logoutBtn" class="btn-logout">Logout</button>
+  </div>
+</header>
+
+<!-- ✅ Page Wrapper -->
+<div class="page-wrapper">
+
+  <!-- ✅ Unified Card -->
+  <div class="waste-card">
+
+    <div class="card-header">
+      <i class="fas fa-recycle"></i>
+      <h1>Add New Waste Entry</h1>
+      <p>Every record matters — contribute to a cleaner, greener tomorrow.</p>
+    </div>
+
+    <form id="addWasteForm" class="waste-form">
+
+      <div class="form-group">
+        <label for="description">Description <span>*</span></label>
+        <input type="text" id="description" name="description" required placeholder="e.g., Leftover food from lunch" />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category <span>*</span></label>
+        <select id="category" name="category" required>
+          <option value="">Select category</option>
+          <option value="Plastic">Plastic</option>
+          <option value="Food">Food</option>
+          <option value="Cardboard">Cardboard</option>
+          <option value="Glass">Glass</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity (kg) <span>*</span></label>
+        <input type="number" id="quantity" name="quantity" min="1" required placeholder="e.g., 5" />
+      </div>
+
+      <div class="form-group">
+        <label for="image_url">Image (Optional)</label>
+        <input type="url" id="image_url" name="image_url" placeholder="Paste image URL (optional)" />
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Submit Entry
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ Footer -->
+<footer class="footer">
+  <p>&copy; 2025 WasteManager | All rights reserved</p>
+</footer>
+
+</body>
+</html>

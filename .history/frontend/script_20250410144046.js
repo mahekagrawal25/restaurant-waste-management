@@ -117,7 +117,6 @@ async function loadDashboardData(token) {
   }
 }
 // 🌟 Login form submission
-// 🌟 Login form submission
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   
@@ -135,48 +134,26 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
     const data = await response.json();
 
     if (response.ok) {
-      // Save token and user details
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
-      localStorage.setItem("role", data.role); // ✅ Save role too
 
       message.textContent = "Login successful! Redirecting...";
       message.classList.remove("text-red-500");
       message.classList.add("text-green-500");
 
-      // ✅ Role-based redirection
       setTimeout(() => {
-        switch (data.role) {
-          case "admin":
-            window.location.href = "admin_dashboard.html";
-            break;
-          case "restaurant":
-            window.location.href = "restaurant_dashboard.html";
-            break;
-          case "waste_collector":
-            window.location.href = "collector_dashboard.html";
-            break;
-          case "ngo":
-            window.location.href = "ngo_dashboard.html";
-            break;
-          default:
-            alert("Unknown role. Contact support.");
-        }
+        window.location.href = "dashboard.html";
       }, 1500);
-      
     } else {
       message.textContent = data.message || "Invalid credentials.";
-      message.classList.remove("text-green-500");
       message.classList.add("text-red-500");
     }
   } catch (error) {
     console.error("Server error:", error);
     message.textContent = "Server error. Please try again later.";
-    message.classList.remove("text-green-500");
     message.classList.add("text-red-500");
   }
 });
-
 
 // 🚀 Logout handler
 document.getElementById("logoutBtn")?.addEventListener("click", logoutUser);

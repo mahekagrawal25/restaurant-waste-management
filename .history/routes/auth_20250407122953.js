@@ -2,9 +2,9 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const pool = require("../db");
 const router = express.Router();
+const authenticateToken = require('../middleware/authMiddleware');
 
 const jwt = require("jsonwebtoken");
-
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -23,44 +23,37 @@ router.post("/login", async (req, res) => {
     }
 
     const user = rows[0];
+
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    // Create JWT with user info
+    // ✅ Include the username in the response
     const token = jwt.sign(
-      {
-        id: user.id,
-        role: user.role,
-        username: user.username,
-      },
+      { id: user.id, role: user.role, username: user.username },  // Include username
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+    
 
-    // ✅ Send role back so frontend can redirect accordingly
     res.json({
       message: "Login successful",
       token,
-      username: user.username,
-      role: user.role,
+      username: user.username, // 👈 Send the username
     });
-
   } catch (error) {
     console.error("Error in /login route:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-
-
 router.post("/signup", async (req, res) => {
-  const { username, email, password, role } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!username || !email || !password || !role) {
-    return res.status(400).json({ message: "All fields are required including role" });
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
@@ -76,10 +69,10 @@ router.post("/signup", async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert user into database with role
+    // Insert user into database with correct column names
     await pool.query(
-      "INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)",
-      [username, email, hashedPassword, role]
+      "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
+      [username, email, hashedPassword]
     );
 
     res.status(201).json({ message: "User registered successfully" });
@@ -126,6 +119,3 @@ router.get('/dashboard/activities', async (req, res) => {
 
 
 
-
-
-module.exports = router;

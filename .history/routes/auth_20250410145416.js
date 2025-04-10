@@ -5,7 +5,6 @@ const router = express.Router();
 
 const jwt = require("jsonwebtoken");
 
-
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -23,38 +22,31 @@ router.post("/login", async (req, res) => {
     }
 
     const user = rows[0];
+
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    // Create JWT with user info
+    // ✅ Include the username in the response
     const token = jwt.sign(
-      {
-        id: user.id,
-        role: user.role,
-        username: user.username,
-      },
+      { id: user.id, role: user.role, username: user.username },  // Include username
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+    
 
-    // ✅ Send role back so frontend can redirect accordingly
     res.json({
       message: "Login successful",
       token,
-      username: user.username,
-      role: user.role,
+      username: user.username, // 👈 Send the username
     });
-
   } catch (error) {
     console.error("Error in /login route:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
-
-
 
 router.post("/signup", async (req, res) => {
   const { username, email, password, role } = req.body;

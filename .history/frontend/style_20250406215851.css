@@ -399,27 +399,35 @@ nav a:hover {
 
 
 /* Make entire page fit on screen */
+/* Page background: soft green gradient */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e8f5e9, #dcedc8); /* light green shades */
+  color: #333;
+}
+
+/* Page Wrapper stays centered */
 .page-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 80px); /* Adjust for header/footer */
   padding: 20px;
-  background-color: #f4f7f6;
 }
 
-/* Unified Card */
+/* Stylish Card: slightly frosted look with tint */
 .waste-card {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
   width: 100%;
-  max-width: 650px;
-
-  /* Updated padding */
-  padding: 60px 40px;
-  box-sizing: border-box;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 
 /* Header Inside Card */
 .card-header {

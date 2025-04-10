@@ -5,6 +5,11 @@ const router = express.Router();
 
 const jwt = require("jsonwebtoken");
 
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const express = require("express");
+const router = express.Router();
+const pool = require("../../db"); // adjust if needed
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -54,7 +59,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
+module.exports = router;
 
 router.post("/signup", async (req, res) => {
   const { username, email, password, role } = req.body;
