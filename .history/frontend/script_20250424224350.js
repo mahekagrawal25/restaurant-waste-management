@@ -652,7 +652,6 @@ async function loadDonationHistory() {
       `;
       tbody.appendChild(row);
     });
-    
 
   } catch (error) {
     console.error("Error loading donation history:", error);

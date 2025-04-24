@@ -465,201 +465,44 @@ pickupContainer.addEventListener("click", async (e) => {
 
 
 // ✅ Load Pickup History
-async function loadPickupHistory() {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await fetch("http://127.0.0.1:5000/api/waste-collection/history", {
-
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    const data = await res.json();
-
-    const tbody = document.getElementById("pickup-history-body");
-    if (!tbody) {
-      console.error("pickup-history-body element not found in DOM.");
-      return;
+document.addEventListener('DOMContentLoaded', function() {
+  const pickupHistoryBody = document.getElementById('pickup-history-body');
+  
+  // Fetch the pickup history data from the backend
+  fetch('/pickup-history', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add your authorization header if needed (e.g., token)
+      // 'Authorization': `Bearer ${yourToken}`
     }
-
-    tbody.innerHTML = ""; // Clear previous rows
-
-    data.forEach(entry => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${entry.id}</td>
-        <td>${entry.description}</td>
-        <td>${entry.category}</td>
-        <td>${entry.quantity}</td>
-        <td>${new Date(entry.pickup_date).toLocaleString()}</td>
-      `;
-      tbody.appendChild(row);
-    });
-
-  } catch (err) {
-    console.error("Error loading pickup history:", err);
-  }
-}
-
-// ✅ DOM Ready Hook for Safe Execution
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname.includes("pickup-history.html")) {
-    loadPickupHistory();
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  const donationContainer = document.getElementById("donationTable").getElementsByTagName('tbody')[0];
-
-  // Fetch pending donation requests
-  async function loadDonationRequests() {
-    try {
-      const res = await fetch("http://localhost:5000/api/food-donations/pending", {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-  
-      if (!res.ok) throw new Error("Failed to fetch donation requests");
-  
-      const donations = await res.json();
-      donationContainer.innerHTML = ""; // Clear the current table rows
-  
-      if (donations.length === 0) {
-        donationContainer.innerHTML = `<tr><td colspan="7" class="status-msg">No pending donation requests.</td></tr>`;
-        return;
-      }
-  
-      donations.forEach((donation, index) => {
-        const row = document.createElement("tr");
-  
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Populate the table with data
+    if (data.length > 0) {
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        
         row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${donation.description}</td>
-          <td>${donation.quantity}</td>
-          <td>${donation.donor_name}</td>
-          <td>${donation.contact}</td>
-          <td>${new Date(donation.created_at).toLocaleString()}</td>
-          <td>
-            <button class="btn-collect" data-id="${donation.id}">
-              Mark as Collected
-            </button>
-          </td>
+          <td>${item.id}</td>
+          <td>${item.description}</td>
+          <td>${item.category}</td>
+          <td>${item.quantity}</td>
+          <td>${new Date(item.pickup_date).toLocaleDateString()}</td>
         `;
-  
-        donationContainer.appendChild(row);
+        
+        pickupHistoryBody.appendChild(row);
       });
-    } catch (err) {
-      console.error("Error loading donation requests:", err);
-      donationContainer.innerHTML = `<tr><td colspan="7" class="status-msg error">Unable to load donation requests.</td></tr>`;
+    } else {
+      // Handle the case where no pickup history is available
+      const row = document.createElement('tr');
+      row.innerHTML = `<td colspan="5">No pickup history available</td>`;
+      pickupHistoryBody.appendChild(row);
     }
-  }
-  
-  // Mark as Collected
-  donationContainer.addEventListener("click", async (e) => {
-    if (e.target.classList.contains("btn-collect")) {
-      const id = e.target.dataset.id;
-
-      try {
-        const res = await fetch(`http://localhost:5000/api/food-donations/mark-collected/${id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-          alert(errorData.message || "Failed to update status");
-          return;
-        }
-
-        const data = await res.json();
-        alert(data.message || "Marked as collected!");
-        loadDonationRequests(); // Refresh list
-      } catch (err) {
-        console.error("Error marking as collected:", err);
-        alert("Server error occurred");
-      }
-    }
+  })
+  .catch(error => {
+    console.error('Error fetching pickup history:', error);
+    // Optionally show a user-friendly error message in the UI
   });
-
-  loadDonationRequests();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-async function loadDonationHistory() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("Please log in first.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/food-donations/history", {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    if (!res.ok) throw new Error("Failed to fetch donation history");
-
-    const data = await res.json();
-    const tbody = document.getElementById("donation-history-body");
-    tbody.innerHTML = "";
-
-    if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: #666;">No donation history found.</td></tr>`;
-    }
-
-    data.forEach(entry => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${entry.id}</td>
-        <td>${entry.description}</td>
-        <td>${entry.quantity}</td>
-        <td>${entry.donor_name}</td>
-        <td>${entry.contact}</td>
-        <td>${new Date(entry.created_at).toLocaleString()}</td>
-        <td class="${entry.status === 'collected' ? 'status-collected' : 'status-pending'}">${entry.status}</td>
-        <td>${entry.collected_by || '-'}</td>
-      `;
-      tbody.appendChild(row);
-    });
-    
-
-  } catch (error) {
-    console.error("Error loading donation history:", error);
-  }
-}
-
-// Auto-load when on donation-history.html
-if (window.location.pathname.includes("donation-history.html")) {
-  window.addEventListener("DOMContentLoaded", loadDonationHistory);
-}

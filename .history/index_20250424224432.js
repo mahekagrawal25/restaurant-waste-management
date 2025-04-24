@@ -330,13 +330,13 @@ app.get("/api/waste-collection/history", authenticateToken, async (req, res) => 
 
 
 
-app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
-  const NGOName = req.user.username;
+router.get("/api//history", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
 
   try {
-    const [rows] = await pool.query(
-      "SELECT * FROM food_donations WHERE collected_by = ? ORDER BY created_at DESC",
-      [NGOName]
+    const [rows] = await db.query(
+      "SELECT * FROM food_donations WHERE user_id = ? ORDER BY created_at DESC",
+      [userId]
     );
     res.json(rows);
   } catch (err) {

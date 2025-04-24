@@ -642,17 +642,13 @@ async function loadDonationHistory() {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${entry.id}</td>
-        <td>${entry.description}</td>
-        <td>${entry.quantity}</td>
-        <td>${entry.donor_name}</td>
-        <td>${entry.contact}</td>
-        <td>${new Date(entry.created_at).toLocaleString()}</td>
-        <td class="${entry.status === 'collected' ? 'status-collected' : 'status-pending'}">${entry.status}</td>
-        <td>${entry.collected_by || '-'}</td>
+  <td>${entry.description}</td>
+  <td>${entry.quantity}</td>
+  <td>${entry.collected_by || '-'}</td>
+  <td>${new Date(entry.created_at).toLocaleString()}</td>
       `;
       tbody.appendChild(row);
     });
-    
 
   } catch (error) {
     console.error("Error loading donation history:", error);

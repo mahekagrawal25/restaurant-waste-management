@@ -252,39 +252,33 @@ app.get("/api/food-donations/pending", authenticateToken, async (req, res) => {
 });
 
 // ✅ Mark Donation as Collected
-// ✅ Mark Donation as Collected
 app.post("/api/food-donations/mark-collected/:id", authenticateToken, async (req, res) => {
-  const collectedBy = req.user.username; // Make sure this is being set correctly in authenticateToken middleware
+  const collectorName = req.user.username; // Assuming `req.user.username` is the authenticated user's name
   const donationId = req.params.id;
 
   try {
+    // Log the request for debugging
+    console.log(`Marking donation ${donationId} as collected by ${collectorName}`);
+
     const [result] = await pool.query(
       `UPDATE food_donations
-       SET status = 'collected',
-           collected_by = ?
+       SET status = 'Collected',
+           collection_date = NOW(),
+           collector_name = ?
        WHERE id = ?`,
-      [collectedBy, donationId]
+      [collectorName, donationId]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Donation not found" });
+      return res.status(404).json({ message: "Donation request not found" });
     }
 
-    res.json({ message: "Donation marked as collected successfully" });
+    res.json({ message: "Marked as collected successfully" });
   } catch (err) {
-    console.error("Error marking donation as collected:", err);
-    res.status(500).json({ message: "Error updating donation status" });
+    console.error("Error updating donation status:", err);
+    res.status(500).json({ message: "Error marking as collected" });
   }
 });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -321,29 +315,6 @@ app.get("/api/waste-collection/history", authenticateToken, async (req, res) => 
 
 
 
-
-
-
-
-
-
-
-
-
-app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
-  const NGOName = req.user.username;
-
-  try {
-    const [rows] = await pool.query(
-      "SELECT * FROM food_donations WHERE collected_by = ? ORDER BY created_at DESC",
-      [NGOName]
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error("Error fetching donation history:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 
 

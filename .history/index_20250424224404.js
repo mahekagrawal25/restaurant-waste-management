@@ -326,29 +326,6 @@ app.get("/api/waste-collection/history", authenticateToken, async (req, res) => 
 
 
 
-
-
-
-
-app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
-  const NGOName = req.user.username;
-
-  try {
-    const [rows] = await pool.query(
-      "SELECT * FROM food_donations WHERE collected_by = ? ORDER BY created_at DESC",
-      [NGOName]
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error("Error fetching donation history:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-
-
-
-
 // ✅ Use Auth Routes
 app.use("/api/auth", require("./routes/auth"));
 

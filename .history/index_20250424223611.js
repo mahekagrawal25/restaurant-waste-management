@@ -253,7 +253,7 @@ app.get("/api/food-donations/pending", authenticateToken, async (req, res) => {
 
 // ✅ Mark Donation as Collected
 // ✅ Mark Donation as Collected
-app.post("/api/food-donations/mark-collected/:id", authenticateToken, async (req, res) => {
+app.post("/api/donations/mark-collected/:id", authenticateToken, async (req, res) => {
   const collectedBy = req.user.username; // Make sure this is being set correctly in authenticateToken middleware
   const donationId = req.params.id;
 
@@ -276,15 +276,6 @@ app.post("/api/food-donations/mark-collected/:id", authenticateToken, async (req
     res.status(500).json({ message: "Error updating donation status" });
   }
 });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -321,29 +312,6 @@ app.get("/api/waste-collection/history", authenticateToken, async (req, res) => 
 
 
 
-
-
-
-
-
-
-
-
-
-app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
-  const NGOName = req.user.username;
-
-  try {
-    const [rows] = await pool.query(
-      "SELECT * FROM food_donations WHERE collected_by = ? ORDER BY created_at DESC",
-      [NGOName]
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error("Error fetching donation history:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 
 

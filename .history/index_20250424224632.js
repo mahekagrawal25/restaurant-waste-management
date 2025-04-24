@@ -331,12 +331,12 @@ app.get("/api/waste-collection/history", authenticateToken, async (req, res) => 
 
 
 app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
-  const NGOName = req.user.username;
+  const userId = req.user.username;
 
   try {
-    const [rows] = await pool.query(
+    const [rows] = await db.query(
       "SELECT * FROM food_donations WHERE collected_by = ? ORDER BY created_at DESC",
-      [NGOName]
+      [userId]
     );
     res.json(rows);
   } catch (err) {
