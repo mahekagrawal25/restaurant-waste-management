@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🏦 Bank Builder – Gamified Account Management</h2>
+
+<form method="post">
+  <label>Action:</label>
+  <select name="action" class="form-select mb-2">
+    <option value="deposit">Deposit</option>
+    <option value="withdraw">Withdraw</option>
+  </select>
+  <label>Amount (₹):</label>
+  <input type="number" name="amount" class="form-control mb-2" required>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+<hr>
+<h4>💰 Balance: ₹{{ balance }}</h4>
+<h5>🏆 Badges Unlocked:</h5>
+<ul>
+  {% for badge in badges %}
+    <li>{{ badge }}</li>
+  {% else %}
+    <li>No badges yet</li>
+  {% endfor %}
+</ul>
+{% endblock %}

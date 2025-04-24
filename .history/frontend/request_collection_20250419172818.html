@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Waste Collection</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        /* Your CSS styles go here */
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">WasteManager</div>
+            <nav>
+                <a href="restaurant_dashboard.html">Dashboard</a>
+                <a href="waste-records.html">Waste Records</a>
+                <a href="history.html">History</a>
+                <a href="donations.html">Donations</a>
+            </nav>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <div class="request-card">
+            <div class="card-header">
+                <i class="fas fa-recycle"></i>
+                <h1>Request Waste Collection</h1>
+            </div>
+
+            <form id="requestCollectionForm">
+                <div class="form-group">
+                    <label for="waste_entry_id">Select Waste Entry <span>*</span></label>
+                    <select id="waste_entry_id" name="waste_entry_id" required>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Request Collection
+                </button>
+            </form>
+
+            <p id="statusMsg" class="status-msg"></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 WasteManager | All rights reserved</p>
+    </footer>
+
+    <script>
+        // Fetch user's waste entries and populate the dropdown
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('/api/waste-entries', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (data && data.length > 0) {
+                const wasteEntrySelect = document.getElementById('waste_entry_id');
+                data.forEach(entry => {
+                    const option = document.createElement('option');
+                    option.value = entry.id;
+                    option.textContent = `${entry.category} - ${entry.description}`;
+                    wasteEntrySelect.appendChild(option);
+                });
+            } else {
+                document.getElementById('statusMsg').textContent = 'No waste entries found.';
+                document.getElementById('statusMsg').style.color = 'red';
+            }
+        });
+
+        document.getElementById('requestCollectionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const waste_entry_id = document.getElementById('waste_entry_id').value;
+            const token = localStorage.getItem('authToken');
+
+            try {
+                const response = await fetch('/api/waste-collection/request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ waste_entry_id })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById('statusMsg').textContent = result.message;
+                    document.getElementById('statusMsg').style.color = 'green';
+                } else {
+                    document.getElementById('statusMsg').textContent = result.message;
+                    document.getElementById('statusMsg').style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Error requesting collection:', error);
+                document.getElementById('statusMsg').textContent = 'An error occurred. Please try again.';
+                document.getElementById('statusMsg').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

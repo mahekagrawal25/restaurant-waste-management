@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Waste Management</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">WasteManager</div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="waste-records.html">Waste Records</a>
+      <a href="history.html">History</a>
+      <a href="donations.html">Donations</a>
+    </nav>
+    <button id="logoutBtn" class="btn-logout">Logout</button>
+  </div>
+</header>
+
+<!-- ✅ Main Content -->
+<main class="container">
+
+  <!-- 👋 Welcome Section -->
+  <section class="welcome-section">
+    <h1>Welcome, <span id="userName">User</span>!</h1>
+    <p>Manage your waste efficiently and make a positive impact on the environment.</p>
+  </section>
+
+  <!-- 🚀 Quick Action Grid -->
+  <section class="actions-grid">
+    <div class="action-card" onclick="location.href='addwaste.html'">
+      <i class="fas fa-plus-circle"></i>
+      <h3>Add Waste</h3>
+      <p>Log new waste entries with details.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='history.html'">
+      <i class="fas fa-history"></i>
+      <h3>View History</h3>
+      <p>Check your waste and donation history.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='reqcollection.html'">
+      <i class="fas fa-truck"></i>
+      <h3>Request Collection</h3>
+      <p>Schedule waste collection services.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='reports.html'">
+      <i class="fas fa-chart-line"></i>
+      <h3>View Reports</h3>
+      <p>Analyze waste and donation statistics.</p>
+    </div>
+  </section>
+
+  <!-- 🗃️ Recent Activities -->
+  <!-- 🗃️ Recent Activities -->
+<!-- Recent Activities Section -->
+<section class="recent-activities">
+  <h2>Recent Activities</h2>
+  <div class="activities-table-container">
+    <table id="activitiesTable">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Category/Status</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="activitiesTableBody">  <!-- This is the element we're targeting -->
+        <!-- Data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</section>
+  
+</main>
+
+<!-- ✅ Footer -->
+<footer class="footer">
+  <p>&copy; 2025 WasteManager | All rights reserved</p>
+</footer>
+
+</body>
+</html>

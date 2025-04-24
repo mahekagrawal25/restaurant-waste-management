@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Collection - WasteManager</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Styling for the page */
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      .page-wrapper {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .collection-card {
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 20px;
+      }
+      .card-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .card-header h1 {
+        font-size: 2rem;
+      }
+      .card-header p {
+        color: #555;
+      }
+      .waste-list {
+        margin-top: 20px;
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .waste-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        background: #f9f9f9;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .waste-list li span {
+        font-size: 1rem;
+      }
+      .request-btn {
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .request-btn:hover {
+        background-color: #218838;
+      }
+      .status-msg {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .status-msg.success {
+        color: green;
+      }
+      .status-msg.error {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="collection-card">
+        <div class="card-header">
+          <h1>Request Waste Collection</h1>
+          <p>Select pending waste entries to request for collection</p>
+        </div>
+
+        <ul id="wasteList" class="waste-list">
+          <!-- Waste entries will be dynamically added here -->
+        </ul>
+
+        <p id="statusMsg" class="status-msg"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

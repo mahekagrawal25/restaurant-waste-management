@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickup Request History - Waste Manager</title>
+    <link rel="stylesheet" href="style.css"> <!-- Your custom CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="request-history.html">Request History</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="container">
+            <h1>Pickup Request History</h1>
+            <div class="table-container">
+                <table id="pickupHistoryTable">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Date Requested</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Waste Manager System</p>
+    </footer>
+
+    <script src="script.js"></script> <!-- Your custom JS file -->
+</body>
+</html>

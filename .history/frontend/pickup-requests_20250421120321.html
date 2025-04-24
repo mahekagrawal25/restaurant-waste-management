@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pending Pickup Requests</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #a8e063, #56ab2f);
+      color: #333;
+    }
+
+    .header {
+      background-color: #f3fdf2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      color: #2f7034;
+      margin: 0;
+    }
+
+    .nav-links a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .logout-btn {
+      background-color: #ff5e5e;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f0fdf4;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .action-btn {
+      background-color: #2f7034;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background-color: #256628;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #f3fdf2;
+      background-color: #2f7034;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>WasteManager</h1>
+    <div class="nav-links">
+      <a href="#">Dashboard</a>
+      <a href="#">Pickup Requests</a>
+      <a href="#">Pickup History</a>
+    </div>
+    <button class="logout-btn">Logout</button>
+  </div>
+
+  <div class="container">
+    <h2>Pending Pickup Requests</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Description</th>
+          <th>Waste Entry ID</th>
+          <th>Requested By</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>Urgent</td>
+          <td>7</td>
+          <td>Test User 3</td>
+          <td>Pending</td>
+          <td><button class="action-btn">Mark as Collected</button></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Needs pickup</td>
+          <td>5</td>
+          <td>Test User 3</td>
+          <td>Pending</td>
+          <td><button class="action-btn">Mark as Collected</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    © 2025 WasteManager | Collector Panel
+  </div>
+
+</body>
+</html>

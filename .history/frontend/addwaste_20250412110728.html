@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Waste</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-card">
+    <h2>Add Waste Entry</h2>
+    <form id="addWasteForm">
+      <input type="text" id="description" placeholder="Description" required><br>
+      <input type="text" id="category" placeholder="Category" required><br>
+      <input type="number" id="quantity" placeholder="Quantity (kg)" required><br>
+      <input type="url" id="image_url" placeholder="Optional Image URL"><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="statusMsg"></p>
+  </div>
+
+  <script>
+    document.getElementById("addWasteForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const user_id = localStorage.getItem("user_id"); // or use session-based auth
+      const res = await fetch("http://localhost:5000/api/waste/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id,
+          description: document.getElementById("description").value,
+          category: document.getElementById("category").value,
+          quantity: document.getElementById("quantity").value,
+          image_url: document.getElementById("image_url").value
+        })
+      });
+
+      const data = await res.json();
+      document.getElementById("statusMsg").textContent = data.message;
+    });
+  </script>
+</body>
+</html>

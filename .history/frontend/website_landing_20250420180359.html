@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WasteManager | Smart Waste Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --forest-green: #2F4A2C;
+      --sage-green: #788E7D;
+      --cream: #F7F0DC;
+      --terracotta: #9E5C30;
+      --bright-orange: #F5971D;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--sage-green);
+      color: var(--forest-green);
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: var(--forest-green);
+      color: var(--cream);
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--bright-orange);
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: url('https://images.unsplash.com/photo-1600282060037-7a2bfbf7db87?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 1rem auto 2rem;
+    }
+
+    .cta-button {
+      background-color: var(--bright-orange);
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: var(--terracotta);
+      transform: scale(1.05);
+    }
+
+    .about, .features {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .about h2, .features h2 {
+      font-size: 2.8rem;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-content h3 {
+      color: var(--bright-orange);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-content p {
+      font-size: 1rem;
+      color: var(--forest-green);
+    }
+
+    footer {
+      background-color: var(--forest-green);
+      color: var(--cream);
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .cta-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><h2>WasteManager</h2></div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text" data-aos="fade-down">
+    <h1>Smart Waste Management for Restaurants</h1>
+    <p>Track, donate, and manage food waste efficiently with our intuitive and eco-friendly platform.</p>
+    <button class="cta-button">Get Started</button>
+  </div>
+</section>
+
+<section class="about" id="about" data-aos="fade-up">
+  <h2>About Us</h2>
+  <p>
+    WasteManager was born from a simple yet powerful idea — to reduce food waste and redirect surplus to those in need.
+    Founded by a group of passionate engineers and change-makers, our mission is to create a seamless solution for restaurants
+    to handle waste responsibly. Every click on our platform brings us one step closer to a cleaner, more compassionate world.
+  </p>
+</section>
+
+<section class="features" id="features">
+  <h2 data-aos="fade-up">Our Features</h2>
+  <div class="cards">
+    <div class="card" data-aos="zoom-in">
+      <img src="https://images.unsplash.com/photo-1581090700227-1e8e6101d7ef" alt="Track Waste">
+      <div class="card-content">
+        <h3>Track Waste</h3>
+        <p>Monitor your food waste daily, weekly, or monthly with interactive dashboards and charts.</p>
+      </div>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="100">
+      <img src="https://images.unsplash.com/photo-1601050691046-c3d5d0e59c21" alt="Food Donation">
+      <div class="card-content">
+        <h3>Food Donation</h3>
+        <p>List surplus food instantly and connect with NGOs to make timely donations effortlessly.</p>
+      </div>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="200">
+      <img src="https://images.unsplash.com/photo-1561047029-3000e62f47e0" alt="Pickup Services">
+      <div class="card-content">
+        <h3>Pickup Services</h3>
+        <p>Schedule eco-friendly waste collection and ensure safe disposal through certified partners.</p>
+      </div>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="300">
+      <img src="https://images.unsplash.com/photo-1604014237744-d1ff20bb0aee" alt="Reports and Insights">
+      <div class="card-content">
+        <h3>Reports & Insights</h3>
+        <p>Export beautiful PDF or CSV reports and discover actionable insights from your data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>&copy; 2025 WasteManager — Built with ❤️ for a sustainable tomorrow.</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+
+</body>
+</html>

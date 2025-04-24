@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pickup Request History</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background: url("./images/restro10.jpeg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .page-wrapper {
+      height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px 20px 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      overflow-y: auto;
+    }
+
+    .request-history-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      width: 100%;
+      max-width: 880px;
+      padding: 40px 45px;
+      box-sizing: border-box;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header h1 {
+      font-size: 2rem;
+      margin: 12px 0;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    .btn-back {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .btn-back:hover {
+      background-color: #0056b3;
+    }
+
+    .footer {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">WasteManager</div>
+      <nav>
+        <a href="restaurant_dashboard.html">Dashboard</a>
+        <a href="waste-records.html">Waste Records</a>
+        <a href="history.html">History</a>
+        <a href="donations.html">Donations</a>
+      </nav>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="request-history-card">
+      <div class="card-header">
+        <i class="fas fa-history"></i>
+        <h1>Pickup Request History</h1>
+      </div>
+
+      <div class="table-container">
+        <table id="pickupHistoryTable">
+          <thead>
+            <tr>
+              <th>Request ID</th>
+              <th>Date Requested</th>
+              <th>Status</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows will be populated dynamically by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <a href="dashboard.html" class="btn-back">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 WasteManager | All rights reserved</p>
+  </footer>
+
+  <script src="script.js"></script> <!-- Your custom JS file -->
+</body>
+</html>

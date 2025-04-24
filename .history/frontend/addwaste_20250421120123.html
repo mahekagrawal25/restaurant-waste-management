@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pickup Requests - WasteManager</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Poppins", sans-serif;
+      background: url("./images/restro10.jpeg") no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .page-wrapper {
+      height: calc(100vh - 80px);
+      padding: 60px 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .request-card {
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      padding: 40px 30px;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #28a745;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .btn-collect {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .btn-collect:hover {
+      background-color: #218838;
+    }
+
+    .navbar {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: #ffffffd9;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-container nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .nav-container .logo {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #28a745;
+    }
+
+    .btn-logout {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-logout:hover {
+      background: #c82333;
+    }
+
+    .footer {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">WasteManager</div>
+      <nav>
+        <a href="collector_dashboard.html">Dashboard</a>
+        <a href="pickup-requests.html" class="active">Pickup Requests</a>
+        <a href="pickup-history.html">Pickup History</a>
+      </nav>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="request-card">
+      <div class="card-header">
+        <i class="fas fa-box fa-2x"></i>
+        <h1>Pending Pickup Requests</h1>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Waste Entry</th>
+            <th>Requested By</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="pickupRequestsTableBody">
+          <tr><td colspan="6">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 WasteManager | Collector Panel</p>
+  </footer>
+</body>
+</html>

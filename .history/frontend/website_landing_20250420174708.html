@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WasteManager | Reduce Restaurant Waste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --brown: #9F6B4B;
+      --cream: #EEDBBE;
+      --mint: #C2D6C5;
+      --leaf: #5E8D66;
+      --forest: #3E4F44;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--mint);
+      color: var(--forest);
+    }
+
+    header {
+      background-color: var(--leaf);
+      color: white;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideDown 1.5s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    nav a {
+      margin: 0 1.5rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--cream);
+    }
+
+    .hero {
+      background-color: var(--cream);
+      padding: 4rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-text {
+      flex: 1 1 50%;
+      padding: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      background-color: var(--leaf);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: var(--forest);
+    }
+
+    .hero-image {
+      flex: 1 1 40%;
+      padding: 2rem;
+      animation: zoomIn 2s ease-in-out;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    section.features {
+      background-color: var(--mint);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .features h2 {
+      color: var(--brown);
+      margin-bottom: 3rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: white;
+      color: var(--forest);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 300px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    footer {
+      background-color: var(--forest);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><h2>WasteManager</h2></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Donate</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Smart Waste Management for Restaurants</h1>
+      <p>Track, donate, and manage food waste efficiently with our intuitive and eco-friendly platform.</p>
+      <button class="cta-button">Get Started</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba" alt="Food Waste"/>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>What We Offer</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Track Waste</h3>
+        <p>Monitor food waste trends and reduce excess with real-time analytics.</p>
+      </div>
+      <div class="card">
+        <h3>Food Donation</h3>
+        <p>Donate surplus food directly to NGOs and prevent wastage.</p>
+      </div>
+      <div class="card">
+        <h3>Collection Services</h3>
+        <p>Schedule pickups and manage waste disposal with trusted partners.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 WasteManager | Built with ❤️ for a sustainable future</p>
+  </footer>
+
+</body>
+</html>
