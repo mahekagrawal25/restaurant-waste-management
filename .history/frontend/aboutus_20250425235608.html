@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | WasteManager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --light-bg: #F8F9FA;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-green);
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: var(--dark-green);
+      color: white;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(19, 52, 30, 0.1);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--gamboge);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--gamboge);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero-about {
+      background: linear-gradient(135deg, rgba(78, 113, 69, 0.9) 0%, rgba(19, 52, 30, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1606787366850-de6330128bfc') center/cover;
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero-about h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .hero-about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .about-content {
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+    }
+
+    .about-section {
+      margin-bottom: 5rem;
+    }
+
+    .about-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--fern-green);
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-section h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 3px;
+      bottom: -10px;
+      left: 0;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+    }
+
+    .about-section p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .founders-section {
+      background-color: white;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .founders-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234e7145' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      z-index: 0;
+    }
+    
+    .founders-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .founders-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .founders-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--dark-green);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .founders-header h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -15px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+    }
+    
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .founder-card {
+      position: relative;
+      height: 400px;
+      perspective: 1000px;
+    }
+    
+    .founder-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    
+    .founder-card:hover .founder-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .founder-front, .founder-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .founder-front {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .founder-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    
+    .founder-name {
+      font-size: 1.8rem;
+      color: var(--dark-green);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .founder-back {
+      background: linear-gradient(135deg, var(--fern-green) 0%, var(--dark-green) 100%);
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .founder-quote {
+      color: white;
+      font-size: 1.2rem;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.6;
+    }
+    
+    .founder-quote::before,
+    .founder-quote::after {
+      content: '"';
+      font-size: 2rem;
+      color: var(--gamboge);
+      line-height: 0;
+    }
+
+    .mission-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      flex: 1 1 300px;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid var(--fern-green);
+    }
+
+    .value-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--sinopia);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .value-card h3 i {
+      color: var(--fern-green);
+    }
+
+    footer {
+      background-color: var(--dark-green);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      margin-top: 5rem;
+    }
+
+    footer p {
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--gamboge);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1.5rem;
+      }
+
+      nav {
+        margin-top: 1.5rem;
+      }
+
+      nav a {
+        margin: 0 1rem;
+      }
+
+      .hero-about h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-about p {
+        font-size: 1rem;
+      }
+
+      .about-section h2 {
+        font-size: 2rem;
+      }
+
+      .founders {
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">WasteManager</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero-about">
+    <h1>Our Story</h1>
+    <p>Transforming food waste management through innovation and sustainability</p>
+  </section>
+
+  <div class="about-content">
+    <section class="about-section">
+      <h2>About WasteManager</h2>
+      <p>WasteManager was born from a shared passion for sustainability and technology. Our platform revolutionizes how restaurants and food businesses manage their surplus food, turning waste into opportunity while making a positive impact on communities and the environment.</p>
+      <p>Founded in 2023, we've grown from a small startup to a trusted partner for hundreds of restaurants across the country. Our mission is to bridge the gap between food waste and food need through smart technology and compassionate action.</p>
+      
+      <div class="mission-values">
+        <div class="value-card">
+          <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+          <p>To reduce food waste by 50% in the restaurant industry by 2030 through innovative technology that makes sustainable practices simple and rewarding.</p>
+        </div>
+        <div class="value-card">
+          <h3><i class="fas fa-heart"></i> Our Values</h3>
+          <p>Sustainability, Innovation, Community Impact, and Transparency guide every decision we make and every feature we build into our platform.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="founders-section" id="founders">
+        <div class="founders-container">
+          <div class="founders-header">
+            <h2>Meet The Founders</h2>
+          </div>
+          
+          <div class="founders-grid">
+            <div class="founder-card">
+              <div class="founder-inner">
+                <div class="founder-front">
+                  <img src="/frontend/images/Mahek.jpg" alt="Alex Johnson" class="founder-photo">
+                  <h3 class="founder-name">Mahek Agrawal</h3>
+                </div>
+                <div class="founder-back">
+                  <p class="founder-quote">Innovating for a sustainable future through technology</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="founder-card">
+              <div class="founder-inner">
+                <div class="founder-front">
+                  <img src="/frontend/images/sneha.jpg" alt="Sarah Chen" class="founder-photo">
+                  <h3 class="founder-name">Sneha Chavan</h3>
+                </div>
+                <div class="founder-back">
+                  <p class="founder-quote">Turning food waste into community opportunities</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class="about-section">
+      <h2>Our Impact</h2>
+      <p>Since our launch, WasteManager has helped restaurants divert over 500,000 pounds of food from landfills, resulting in the equivalent of 1.2 million meals donated to communities in need.</p>
+      <p>Our partners report an average 40% reduction in food waste within the first six months of using our platform, translating to significant cost savings and environmental benefits.</p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <p>Join us in creating a more sustainable food ecosystem for future generations.</p>
+    <p class="copyright">&copy; 2025 WasteManager. All rights reserved.</p>
+  </footer>
+</body>
+</html>

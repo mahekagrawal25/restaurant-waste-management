@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate Food | WasteRo</title>
+  <link rel="stylesheet" href="ngostyle.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background: url("./images/restro10.jpeg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .page-wrapper {
+      height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px 20px 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      overflow-y: auto;
+    }
+
+    .donation-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(19, 52, 30, 0.15);
+      width: 100%;
+      max-width: 680px;
+      padding: 40px 45px;
+      box-sizing: border-box;
+      border-top: 5px solid var(--gamboge);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header h1 {
+      font-size: 2rem;
+      margin: 12px 0;
+      color: var(--dark-green);
+    }
+
+    .card-header i {
+      color: var(--fern-green);
+      font-size: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      resize: none;
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 20px;
+      background-color: var(--fern-green);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--dark-green);
+    }
+
+    .footer {
+      display: none;
+    }
+
+    .status-msg {
+      margin-top: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .status-msg.success {
+      color: var(--fern-green);
+    }
+
+    .status-msg.error {
+      color: var(--sinopia);
+    }
+
+    /* Color variables from first file */
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">WasteRo</div>
+      <nav>
+        <a href="restaurant_dashboard.html">Dashboard</a>
+        <a href="waste-records.html">Waste Records</a>
+        <a href="history.html">History</a>
+        <a href="donations.html">Donations</a>
+      </nav>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="donation-card">
+      <div class="card-header">
+        <i class="fas fa-hand-holding-heart"></i>
+        <h1>Donate Surplus Food</h1>
+      </div>
+
+      <form id="foodDonationForm" method="POST" action="/api/food-donations">
+        <div class="form-group">
+          <label for="description">Food Description <span>*</span></label>
+          <textarea id="description" name="description" required placeholder="E.g. 10 boxes of rice and curry"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity (servings) <span>*</span></label>
+          <input type="number" id="quantity" name="quantity" required min="1" placeholder="E.g. 10" />
+        </div>
+
+        <div class="form-group">
+          <label for="donor_name">Restaurant / Donor Name <span>*</span></label>
+          <input type="text" id="donor_name" name="donor_name" required placeholder="E.g. Tasty Bites Cafe" />
+        </div>
+
+        <div class="form-group">
+          <label for="contact">Contact Number <span>*</span></label>
+          <input type="tel" id="contact" name="contact" required placeholder="E.g. 9876543210" maxlength="15" />
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-paper-plane"></i> Submit Donation
+        </button>
+      </form>
+
+      <p id="statusMsg" class="status-msg"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 WasteRo | All rights reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

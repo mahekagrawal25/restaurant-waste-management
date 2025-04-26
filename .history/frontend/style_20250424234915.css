@@ -1,0 +1,87 @@
+/* ✅ General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #13341E, #4E7145); /* Dark Green to Fern Green */
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ Navigation Bar */
+.navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #13341E; /* Dark Green */
+  font-family: 'Georgia', serif;
+}
+
+nav a:hover {
+  color: #4E7145; /* Fern Green */
+  transform: scale(1.1);
+}
+
+.btn-logout {
+  background: #C4501B; /* Sinopia (Orange-Red) */
+  color: #fff;
+}
+
+.btn-logout:hover {
+  background: #8A2B13; /* Sienna (Darker Orange-Red) */
+}
+
+/* ✅ Action Cards */
+.action-card i {
+  color: #4E7145; /* Fern Green */
+}
+
+/* ✅ Buttons */
+.btn-submit, .btn-view-all {
+  background-color: #4E7145; /* Fern Green */
+}
+
+.btn-submit:hover, .btn-view-all:hover {
+  background-color: #13341E; /* Dark Green */
+}
+
+/* ✅ Hero Section */
+.hero-header {
+  background: linear-gradient(to right, #4E7145, #13341E); /* Fern Green to Dark Green */
+}
+
+/* ✅ Form Focus */
+.waste-form input:focus,
+.waste-form select:focus {
+  border-color: #4E7145; /* Fern Green */
+}
+
+/* ✅ Card Header */
+.card-header i {
+  color: #4E7145; /* Fern Green */
+}
+
+.waste-form label {
+  color: #4E7145; /* Fern Green */
+}
+
+/* ✅ Accents (Orange) */
+.action-card:hover, .btn-logout, .hero-content i {
+  /* Gamboge (#EB9C35) used for interactive accents */
+  box-shadow: 0 14px 30px rgba(235, 156, 53, 0.2); 
+}

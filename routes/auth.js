@@ -102,17 +102,17 @@ router.get('/dashboard/activities', authenticateToken, async (req, res) => {
     const userId = req.user.id;
 
     const [wasteEntries] = await pool.query(
-      'SELECT * FROM waste_entries WHERE user_id = ? ORDER BY created_at DESC LIMIT 3',
+      'SELECT * FROM waste_entries WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
       [userId]
     );
     
     const [donations] = await pool.query(
-      'SELECT * FROM food_donations WHERE user_id = ? ORDER BY created_at DESC LIMIT 3',
+      'SELECT * FROM food_donations WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
       [userId]
     );
     
     const [collections] = await pool.query(
-      'SELECT * FROM waste_collection WHERE user_id = ? ORDER BY created_at DESC LIMIT 3',
+      'SELECT * FROM waste_collection WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
       [userId]
     );
 

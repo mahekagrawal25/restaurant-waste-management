@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Waste - WasteRo</title>
+    <link rel="stylesheet" href="ngostyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --dark-green: #13341E;
+        --fern-green: #4E7145;
+        --gamboge: #EB9C35;
+        --sinopia: #C4501B;
+        --sienna: #8A2B13;
+      }
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+        background: url("./images/restro10.jpeg") no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .page-wrapper {
+        height: calc(100vh - 80px);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 60px 20px 20px 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        overflow-y: auto;
+      }
+
+      .waste-card {
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 24px;
+        box-shadow: 0 12px 30px rgba(19, 52, 30, 0.15);
+        width: 100%;
+        max-width: 680px;
+        padding: 60px 45px;
+        box-sizing: border-box;
+        border-top: 5px solid var(--gamboge);
+      }
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .card-header h1 {
+        font-size: 2.2rem;
+        margin: 12px 0;
+        color: var(--dark-green);
+      }
+
+      .card-header p {
+        font-size: 1rem;
+        color: #555;
+      }
+
+      .card-header i {
+        color: var(--fern-green);
+      }
+
+      .form-group {
+        margin-bottom: 28px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+
+      label span {
+        color: var(--sinopia);
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 14px 20px;
+        background-color: var(--fern-green);
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-submit:hover {
+        background-color: var(--dark-green);
+      }
+
+      .footer {
+        display: none;
+      }
+
+      .status-msg {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .status-msg.success {
+        color: var(--fern-green);
+      }
+
+      .status-msg.error {
+        color: var(--sinopia);
+      }
+
+      
+
+    
+
+      .btn-logout {
+        background: var(--sinopia);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .btn-logout:hover {
+        background: var(--sienna);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">WasteRo</div>
+        <nav>
+          <a href="restaurant_dashboard.html">Dashboard</a>
+         <a href="addwaste.html">Add Waste</a>
+      <a href="request-collection.html">Request Collection</a>
+      <a href="donations.html">Donate food</a>
+        </nav>
+        <button id="logoutBtn" class="btn-logout">Logout</button>
+      </div>
+    </header>
+
+    <div class="page-wrapper">
+      <div class="waste-card">
+        <div class="card-header">
+          <i class="fas fa-recycle fa-2x"></i>
+          <h1>Add New Waste Entry</h1>
+          <p>
+            Every record matters — contribute to a cleaner, greener tomorrow.
+          </p>
+        </div>
+
+        <form id="addWasteForm" class="waste-form">
+          <!-- Optional: user_id can be filled dynamically by backend or JS -->
+          <input type="hidden" id="user_id" name="user_id" />
+
+          <div class="form-group">
+            <label for="description">Description <span>*</span></label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              required
+              placeholder="e.g., Leftover food from lunch"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category <span>*</span></label>
+            <select id="category" name="category" required>
+              <option value="">Select category</option>
+              <option value="Plastic">Plastic</option>
+              <option value="Food">Food</option>
+              <option value="Cardboard">Cardboard</option>
+              <option value="Glass">Glass</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity">Quantity (kg) <span>*</span></label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              required
+              placeholder="e.g., 5"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="image_url">Image (Optional)</label>
+            <input
+              type="url"
+              id="image_url"
+              name="image_url"
+              placeholder="Paste image URL (optional)"
+            />
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit Entry
+          </button>
+          <p id="statusMsg" class="status-msg"></p>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 WasteRo | All rights reserved</p>
+    </footer>
+
+    <!-- Optional: Add script for logout and form handling -->
+    <script>
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token"); // or sessionStorage depending on usage
+        window.location.href = "index.html";
+      });
+
+      // Example submit handler
+      document.getElementById("addWasteForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+          user_id: document.getElementById("user_id").value,
+          description: form.description.value,
+          category: form.category.value,
+          quantity: form.quantity.value,
+          image_url: form.image_url.value
+        };
+
+        const statusMsg = document.getElementById("statusMsg");
+
+        try {
+          const res = await fetch("http://localhost:5000/api/waste/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify(data)
+          });
+
+          const result = await res.json();
+
+          if (res.ok) {
+            statusMsg.textContent = "Waste entry submitted successfully!";
+            statusMsg.className = "status-msg success";
+            form.reset();
+          } else {
+            statusMsg.textContent = result.message || "Submission failed.";
+            statusMsg.className = "status-msg error";
+          }
+        } catch (error) {
+          statusMsg.textContent = "An error occurred. Try again.";
+          statusMsg.className = "status-msg error";
+        }
+      });
+    </script>
+  </body>
+</html>

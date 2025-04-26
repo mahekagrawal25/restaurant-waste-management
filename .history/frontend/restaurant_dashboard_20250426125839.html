@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Waste Management</title>
+  <link rel="stylesheet" href="ngostyle.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
+    }
+
+    
+
+    
+
+
+    .container {
+      padding: 40px 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      min-height: calc(100vh - 80px);
+    }
+
+    .welcome-section h1 {
+      font-size: 2rem;
+      color: var(--dark-green);
+    }
+
+    .welcome-section p {
+      color: var(--dark-green);
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .action-card {
+      background-color: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(19, 52, 30, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-top: 5px solid var(--gamboge);
+    }
+
+    .action-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .action-card i {
+      font-size: 2.2rem;
+      color: var(--fern-green);
+    }
+
+    .action-card h3 {
+      margin: 12px 0 6px;
+      color: var(--dark-green);
+    }
+
+    .action-card p {
+      font-size: 0.9rem;
+      color: var(--dark-green);
+    }
+
+    .recent-activities h2 {
+      margin-top: 40px;
+      color: var(--dark-green);
+    }
+
+    .activities-table-container {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.97);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(19, 52, 30, 0.15);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: var(--fern-green);
+      color: white;
+    }
+
+    tr:hover {
+      background-color: rgba(232, 240, 230, 0.5);
+    }
+
+    .footer {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--dark-green);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">WasteRo</div>
+    <nav>
+      <a href="restaurant_dashboard.html">Dashboard</a>
+      <a href="addwaste.html">Add Waste</a>
+      <a href="history.html">History</a>
+      <a href="donations.html">Donations</a>
+    </nav>
+    <button id="logoutBtn" class="btn-logout">Logout</button>
+  </div>
+</header>
+
+<!-- ✅ Main Content -->
+<main class="container">
+
+  <!-- 👋 Welcome Section -->
+  <section class="welcome-section">
+    <h1>Welcome, <span id="userName">User</span>!</h1>
+    <p>Manage your waste efficiently and make a positive impact on the environment.</p>
+  </section>
+
+  <!-- 🚀 Quick Action Grid -->
+  <section class="actions-grid">
+    <div class="action-card" onclick="location.href='addwaste.html'">
+      <i class="fas fa-plus-circle"></i>
+      <h3>Add Waste</h3>
+      <p>Log new waste entries with details.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='donations.html'">
+      <i class="fas fa-history"></i>
+      <h3>View History</h3>
+      <p>Check your waste and donation history.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='request-collection.html'">
+      <i class="fas fa-truck"></i>
+      <h3>Request Collection</h3>
+      <p>Schedule waste collection services.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='reports.html'">
+      <i class="fas fa-chart-line"></i>
+      <h3>View Reports</h3>
+      <p>Analyze waste and donation statistics.</p>
+    </div>
+  </section>
+
+<!-- 🗃️ Recent Activities -->
+<section class="recent-activities">
+  <h2>Recent Activities</h2>
+  <div class="activities-table-container">
+    <table id="activitiesTable">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Category/Status</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="activitiesTableBody">
+        <!-- Data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<!-- ✅ Footer -->
+<footer class="footer">
+  <p>&copy; 2025 WasteManager | All rights reserved</p>
+</footer>
+
+</body>
+</html>

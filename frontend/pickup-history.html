@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pickup Requests | WasteManager</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Pickup Requests | WasteRo</title>
+  <link rel="stylesheet" href="ngostyle.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
   <style>
@@ -48,6 +48,7 @@
     .card-header h1 {
       font-size: 2rem;
       margin: 12px 0;
+      color: var(--dark-green);
     }
 
     table {
@@ -63,48 +64,61 @@
     }
 
     th {
-      background-color: #28a745;
+      background-color: var(--fern-green);
       color: white;
     }
 
     tr:hover {
-      background-color: #f1f1f1;
+      background-color: rgba(232, 240, 230, 0.5);
     }
 
     .btn-collect {
       padding: 8px 14px;
-      background-color: #28a745;
+      background-color: var(--gamboge);
       color: white;
       font-weight: 500;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .btn-collect:hover {
-      background-color: #218838;
+      background-color: var(--sinopia);
+      transform: translateY(-2px);
     }
 
     .footer {
       display: none;
+    }
+
+    /* Color Variables */
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
     }
   </style>
 </head>
 <body>
   <header class="navbar">
     <div class="nav-container">
-      <div class="logo">WasteManager</div>
+      <div class="logo">WasteRo</div>
       <nav>
         <a href="collector_dashboard.html">Dashboard</a>
-        <a href="pickup-requests.html" class="active">Pickup Requests</a>
+        <a href="pickup-requests.html">Pickup Requests</a>
+        <a href="pickup-history.html">Pickup History</a>       
+        
+
       </nav>
       <button id="logoutBtn" class="btn-logout">Logout</button>
     </div>
   </header>
 
   <!-- Replace your <div class="container"> section with this -->
-<div class="page-wrapper">
+  <div class="page-wrapper">
     <div class="pickup-card">
       <div class="card-header">
         <h1>Pickup History</h1>
@@ -123,10 +137,9 @@
       </table>
     </div>
   </div>
-  
 
   <footer class="footer">
-    <p>&copy; 2025 WasteManager | All rights reserved</p>
+    <p>&copy; 2025 WasteRo | All rights reserved</p>
   </footer>
 
   <script src="script.js"></script>

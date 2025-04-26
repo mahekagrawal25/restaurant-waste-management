@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collector Dashboard - Waste Management</title>
+  <link rel="stylesheet" href="ngostyle.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">WasteRo</div>
+    <nav>
+      <a href="collector_dashboard.html">Dashboard</a>
+      <a href="pickup-requests.html">Pickup Requests</a>
+      <a href="pickup-history.html">Pickup History</a>
+    </nav>
+    <button id="logoutBtn" class="btn-logout">Logout</button>
+  </div>
+</header>
+<main class="container">
+  <section class="welcome-section">
+    <h1>Welcome, <span id="userName">User</span>!</h1>
+    <p>Manage assigned pickups and mark collections.</p>
+  </section>
+  <section class="actions-grid">
+    <div class="action-card" onclick="location.href='pickup-requests.html'">
+      <i class="fas fa-box"></i>
+      <h3>Pickup Requests</h3>
+      <p>View waste ready for collection.</p>
+    </div>
+    <div class="action-card" onclick="location.href='pickup-history.html'">
+      <i class="fas fa-check-circle"></i>
+      <h3>Pickup History</h3>
+      <p>Review your past collections.</p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <p>&copy; 2025 WasteRo | Collector Panel</p>
+</footer>
+</body>
+</html>

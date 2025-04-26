@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WasteManager | Smart Waste Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #cade33;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sisma: #8A2B13;
+      --light-bg: #F8F9FA;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-green);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--dark-green);
+      color: white;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(19, 52, 30, 0.2);
+      animation: slideDown 0.8s ease-out forwards;
+    }
+
+    .logo h2 {
+      color: white;
+      font-size: 1.8rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--gamboge);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--gamboge);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, var(--fern-green) 0%, var(--dark-green) 100%);
+      padding: 5rem 2rem;
+      color: white;
+      animation: fadeIn 1s ease;
+    }
+
+    .hero-text {
+      flex: 1 1 500px;
+      padding: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+    }
+
+    .cta-button {
+      background-color: var(--gamboge);
+      color: var(--dark-green);
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(235, 156, 53, 0.3);
+    }
+
+    .cta-button:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(235, 156, 53, 0.4);
+    }
+
+    .hero-image {
+      flex: 1 1 400px;
+      padding: 2rem;
+      animation: zoomIn 1.5s ease;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      border: 4px solid rgba(255,255,255,0.1);
+    }
+
+    .about {
+      background-color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .about h2 {
+      color: var(--dark-green);
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .about h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -10px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+      border-radius: 2px;
+    }
+
+    .about p {
+      max-width: 900px;
+      margin: auto;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--dark-green);
+      padding: 1.5rem 2rem;
+    }
+
+    .features {
+      background-color: var(--light-bg);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .features h2 {
+      color: var(--dark-green);
+      margin-bottom: 4rem;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .features h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -10px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+      border-radius: 2px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      width: 300px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 8px 24px rgba(19, 52, 30, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-top: 4px solid var(--fern-green);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(19, 52, 30, 0.15);
+    }
+
+    .card h3 {
+      color: var(--sinopia);
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      color: var(--dark-green);
+      font-size: 1rem;
+    }
+
+    footer {
+      background-color: var(--dark-green);
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    footer p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Button Styles */
+    .signin-btn {
+      background-color: var(--gamboge);
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--dark-green);
+      transition: all 0.3s ease;
+      margin-left: 1rem;
+    }
+
+    .signin-btn:hover {
+      background-color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(235, 156, 53, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+      }
+      
+      nav {
+        margin-top: 1rem;
+      }
+      
+      nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+      
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      
+      .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      
+      .about, .features {
+        padding: 4rem 1rem;
+      }
+      
+      .about h2, .features h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><h2>WasteRo</h2></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+      <a href="signup.html" class="signin-btn">Sign In</a>
+    </nav>
+  </header>
+  
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Smart Waste Management for Restaurants</h1>
+      <p>Track, donate, and manage food waste efficiently with our intuitive and eco-friendly platform.</p>
+      <a href="index.html">
+        <button class="cta-button">Get Started</button>
+      </a>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba" alt="Food Waste"/>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About Us</h2>
+    <p>
+      WasteManager is more than a tool—it's a movement toward smarter, more sustainable food practices. Our platform empowers restaurants to take control of their food waste by turning excess into opportunity. Whether it's reducing carbon footprint, aiding the community, or improving operational efficiency, we offer a purpose-driven solution that fits right into your workflow.<br/><br/>
+      Founded by passionate technologists and environmental advocates, our goal is to bridge the gap between surplus and scarcity. Every feature, every dashboard, and every donation made through WasteManager reflects our commitment to a greener planet and a fairer world. Join us in reshaping the future—one plate at a time.
+    </p>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Our Features</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Track Waste</h3>
+        <p>Monitor your food waste daily, weekly, or monthly with interactive dashboards and charts.</p>
+      </div>
+      <div class="card">
+        <h3>Food Donation</h3>
+        <p>List surplus food instantly and connect with NGOs to make timely donations effortlessly.</p>
+      </div>
+      <div class="card">
+        <h3>Pickup Services</h3>
+        <p>Schedule eco-friendly waste collection and ensure safe disposal through certified partners.</p>
+      </div>
+      <div class="card">
+        <h3>Reports & Insights</h3>
+        <p>Export beautiful PDF or CSV reports and discover actionable insights from your data.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>&copy; 2025 WasteManager — Built with ❤️ for a sustainable tomorrow.</p>
+  </footer>
+
+</body>
+</html>

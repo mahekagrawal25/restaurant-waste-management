@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pickup Request History</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ngostyle.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -39,11 +39,12 @@
     .request-history-card {
       background: rgba(255, 255, 255, 0.97);
       border-radius: 24px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 12px 30px rgba(19, 52, 30, 0.15);
       width: 100%;
       max-width: 880px;
       padding: 40px 45px;
       box-sizing: border-box;
+      border-top: 5px solid var(--gamboge);
     }
 
     .card-header {
@@ -54,6 +55,12 @@
     .card-header h1 {
       font-size: 2rem;
       margin: 12px 0;
+      color: var(--dark-green);
+    }
+
+    .card-header i {
+      color: var(--fern-green);
+      font-size: 2.5rem;
     }
 
     .table-container {
@@ -73,13 +80,18 @@
     }
 
     th {
-      background-color: #f4f4f4;
+      background-color: var(--fern-green);
+      color: white;
+    }
+
+    tr:hover {
+      background-color: rgba(232, 240, 230, 0.5);
     }
 
     .btn-back {
       display: inline-block;
       padding: 12px 20px;
-      background-color: #007bff;
+      background-color: var(--gamboge);
       color: white;
       font-size: 1rem;
       border: none;
@@ -87,21 +99,32 @@
       cursor: pointer;
       text-decoration: none;
       margin-top: 20px;
+      transition: all 0.3s ease;
     }
 
     .btn-back:hover {
-      background-color: #0056b3;
+      background-color: var(--sinopia);
+      transform: translateY(-2px);
     }
 
     .footer {
       display: none;
+    }
+
+    /* Color variables from first file */
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
     }
   </style>
 </head>
 <body>
   <header class="navbar">
     <div class="nav-container">
-      <div class="logo">WasteManager</div>
+      <div class="logo">WasteRo</div>
       <nav>
         <a href="restaurant_dashboard.html">Dashboard</a>
         <a href="waste-records.html">Waste Records</a>
@@ -140,7 +163,7 @@
   </div>
 
   <footer class="footer">
-    <p>&copy; 2025 WasteManager | All rights reserved</p>
+    <p>&copy; 2025 WasteRo | All rights reserved</p>
   </footer>
 
   <script src="script.js"></script> <!-- Your custom JS file -->

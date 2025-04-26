@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Waste Management</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(135deg, #13341E, #4E7145); color: #333; min-height: 100vh; display: flex; flex-direction: column;">
+
+<!-- ✅ Navigation Bar (Colors added inline) -->
+<header class="navbar" style="background: rgba(255, 255, 255, 0.85);">
+  <div class="nav-container">
+    <div class="logo" style="color: #13341E;">WasteManager</div> <!-- Dark Green -->
+    <nav>
+      <a href="dashboard.html" style="color: #444;">Dashboard</a>
+      <a href="waste-records.html" style="color: #444;">Waste Records</a>
+      <a href="history.html" style="color: #444;">History</a>
+      <a href="donations.html" style="color: #444;">Donations</a>
+    </nav>
+    <button id="logoutBtn" class="btn-logout" style="background: #C4501B; color: #fff;">Logout</button> <!-- Sinopia -->
+  </div>
+</header>
+
+<!-- ✅ Main Content -->
+<main class="container">
+
+  <!-- 👋 Welcome Section (Colors added inline) -->
+  <section class="welcome-section">
+    <h1 style="color: #fff;">Welcome, <span id="userName">User</span>!</h1>
+    <p style="color: #f0f0f0;">Manage your waste efficiently and make a positive impact on the environment.</p>
+  </section>
+
+  <!-- 🚀 Quick Action Grid (Colors added inline) -->
+  <section class="actions-grid">
+    <div class="action-card" onclick="location.href='addwaste.html'" style="background: rgba(255, 255, 255, 0.85);">
+      <i class="fas fa-plus-circle" style="color: #4E7145;"></i> <!-- Fern Green -->
+      <h3 style="color: #333;">Add Waste</h3>
+      <p style="color: #555;">Log new waste entries with details.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='donations.html'" style="background: rgba(255, 255, 255, 0.85);">
+      <i class="fas fa-history" style="color: #4E7145;"></i> <!-- Fern Green -->
+      <h3 style="color: #333;">View History</h3>
+      <p style="color: #555;">Check your waste and donation history.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='request-collection.html'" style="background: rgba(255, 255, 255, 0.85);">
+      <i class="fas fa-truck" style="color: #4E7145;"></i> <!-- Fern Green -->
+      <h3 style="color: #333;">Request Collection</h3>
+      <p style="color: #555;">Schedule waste collection services.</p>
+    </div>
+
+    <div class="action-card" onclick="location.href='reports.html'" style="background: rgba(255, 255, 255, 0.85);">
+      <i class="fas fa-chart-line" style="color: #4E7145;"></i> <!-- Fern Green -->
+      <h3 style="color: #333;">View Reports</h3>
+      <p style="color: #555;">Analyze waste and donation statistics.</p>
+    </div>
+  </section>
+
+  <!-- 🗃️ Recent Activities (Colors added inline) -->
+  <section class="recent-activities" style="background: rgba(255, 255, 255, 0.9);">
+    <h2 style="color: #333;">Recent Activities</h2>
+    <div class="activities-table-container">
+      <table id="activitiesTable">
+        <thead>
+          <tr>
+            <th style="background-color: #f5f5f5;">Type</th>
+            <th style="background-color: #f5f5f5;">Description</th>
+            <th style="background-color: #f5f5f5;">Category/Status</th>
+            <th style="background-color: #f5f5f5;">Quantity</th>
+            <th style="background-color: #f5f5f5;">Date</th>
+          </tr>
+        </thead>
+        <tbody id="activitiesTableBody">
+          <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- ✅ Footer (Colors added inline) -->
+<footer class="footer" style="background: rgba(255, 255, 255, 0.9); color: #333;">
+  <p>&copy; 2025 WasteManager | All rights reserved</p>
+</footer>
+
+</body>
+</html>

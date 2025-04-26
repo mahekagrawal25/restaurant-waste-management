@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donation Requests | WasteManager</title>
+  <link rel="stylesheet" href="ng.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Poppins", sans-serif;
+      background: url("./images/restro10.jpeg") no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .page-wrapper {
+      height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px 20px 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      overflow-y: auto;
+    }
+
+    .donation-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      width: 100%;
+      max-width: 980px;
+      padding: 35px 40px;
+      box-sizing: border-box;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header h1 {
+      font-size: 2rem;
+      margin: 12px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .btn-collect {
+      padding: 8px 14px;
+      background-color: #2e7d32;
+      color: white;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-collect:hover {
+      background-color: #1b5e20;
+    }
+
+    .footer {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">WasteManager</div>
+      <nav>
+        <a href="ngo_dashboard.html">Dashboard</a>
+        <a href="donations-request.html" class="active">Donation Requests</a>
+      </nav>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="donation-card">
+      <div class="card-header">
+        <i class="fas fa-hand-holding-heart"></i>
+        <h1>Donation Requests</h1>
+      </div>
+
+      <table id="donationTable">
+        <thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Donor Name</th>
+            <th>Contact</th>
+            <th>Created At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 WasteManager | All rights reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

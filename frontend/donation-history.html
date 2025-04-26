@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Donation History | WasteManager</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Donation History | WasteRo</title>
+  <link rel="stylesheet" href="ngostyle.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -38,6 +46,7 @@
       max-width: 980px;
       padding: 35px 40px;
       box-sizing: border-box;
+      border-top: 5px solid var(--gamboge);
     }
 
     .card-header {
@@ -48,6 +57,7 @@
     .card-header h1 {
       font-size: 2rem;
       margin: 12px 0;
+      color: var(--dark-green);
     }
 
     table {
@@ -63,21 +73,21 @@
     }
 
     th {
-      background-color: #28a745;
+      background-color: var(--fern-green);
       color: white;
     }
 
     tr:hover {
-      background-color: #f1f1f1;
+      background-color: rgba(232, 240, 230, 0.5);
     }
 
     .status-pending {
-      color: #e67e22;
+      color: var(--gamboge);
       font-weight: 600;
     }
 
     .status-collected {
-      color: #27ae60;
+      color: var(--fern-green);
       font-weight: 600;
     }
 
@@ -89,10 +99,11 @@
 <body>
   <header class="navbar">
     <div class="nav-container">
-      <div class="logo">WasteManager</div>
+      <div class="logo">WasteRo</div>
       <nav>
         <a href="ngo_dashboard.html">Dashboard</a>
-        <a href="donation-history.html" class="active">Donation History</a>
+        <a href="donation-requests.html">Donation Requests</a>
+        <a href="donation-history.html">Donation History</a>
       </nav>
       <button id="logoutBtn" class="btn-logout">Logout</button>
     </div>
@@ -124,7 +135,7 @@
   </div>
 
   <footer class="footer">
-    <p>&copy; 2025 WasteManager | All rights reserved</p>
+    <p>&copy; 2025 WasteRo | All rights reserved</p>
   </footer>
 
   <script src="script.js"></script>

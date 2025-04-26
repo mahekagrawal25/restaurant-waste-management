@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | WasteManager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* [Previous CSS styles remain exactly the same until .founders section] */
+    
+    .founders {
+      display: flex;
+      justify-content: center;
+      gap: 6rem;
+      margin: 4rem 0;
+      flex-wrap: wrap;
+    }
+
+    .founder {
+      text-align: center;
+      width: 280px;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+    }
+
+    .founder:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .founder-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--gamboge);
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .founder h3 {
+      font-size: 1.6rem;
+      color: var(--dark-green);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* [Rest of the CSS remains unchanged] */
+  </style>
+</head>
+<body>
+  <!-- [Header and previous sections remain unchanged] -->
+
+  <section class="about-section">
+    <h2>Meet The Founders</h2>
+    <div class="founders">
+      <div class="founder">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="Alex Johnson" class="founder-photo">
+        <h3>Alex Johnson</h3>
+      </div>
+      <div class="founder">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="Sarah Chen" class="founder-photo">
+        <h3>Sarah Chen</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- [Rest of the HTML remains unchanged] -->
+</body>
+</html>

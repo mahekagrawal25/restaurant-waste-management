@@ -347,6 +347,108 @@ app.get("/api/food-donations/history", authenticateToken, async (req, res) => {
 
 
 
+// ✅ Protected Route: View Waste Statistics
+app.get("/api/reports/waste", authenticateToken, async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT category, SUM(quantity) AS total_quantity
+      FROM waste_entries
+      WHERE user_id = ?
+      GROUP BY category
+    `, [req.user.id]); // Only the logged-in user's waste
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching waste report:", error);
+    res.status(500).json({ message: "Error fetching waste report" });
+  }
+});
+
+
+
+
+
+// ✅ Protected Route: View Donation Statistics
+app.get("/api/reports/donations", authenticateToken, async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT DATE(created_at) AS date, COUNT(*) AS total_donations
+      FROM food_donations
+      WHERE user_id = ?
+      GROUP BY DATE(created_at)
+      ORDER BY date DESC
+    `, [req.user.id]); // Only the logged-in user's donations
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching donation report:", error);
+    res.status(500).json({ message: "Error fetching donation report" });
+  }
+});
+
+
+
+
+// Corrected Summary API
+app.get("/api/reports/summary", authenticateToken, async (req, res) => {
+  try {
+    // Step 1: Fetch all waste entries for the current user
+    const [wasteEntries] = await pool.query(`
+      SELECT category, quantity
+      FROM waste_entries
+      WHERE user_id = ?
+    `, [req.user.id]);
+
+    // Step 2: Fetch total donation count
+    const [donationRows] = await pool.query(`
+      SELECT COUNT(*) AS total_donations
+      FROM food_donations
+      WHERE user_id = ?
+    `, [req.user.id]);
+
+    let totalWaste = 0;
+    let categoryTotals = {}; // { "Plastic": 10, "Food": 15, ... }
+
+    wasteEntries.forEach(entry => {
+      totalWaste += entry.quantity;
+
+      if (categoryTotals[entry.category]) {
+        categoryTotals[entry.category] += entry.quantity;
+      } else {
+        categoryTotals[entry.category] = entry.quantity;
+      }
+    });
+
+    // Prepare wasteByCategory for chart
+    const wasteByCategory = {
+      labels: Object.keys(categoryTotals),
+      values: Object.values(categoryTotals)
+    };
+
+    // Find the most common waste category
+    let commonCategory = "-";
+    if (Object.keys(categoryTotals).length > 0) {
+      commonCategory = Object.entries(categoryTotals).reduce((prev, curr) => 
+        (prev[1] > curr[1]) ? prev : curr
+      )[0];
+    }
+
+    // Final response
+    res.json({
+      totalWaste: totalWaste,
+      totalDonations: donationRows[0].total_donations,
+      commonCategory: commonCategory,
+      wasteByCategory: wasteByCategory
+    });
+
+  } catch (error) {
+    console.error("Error fetching summary report:", error);
+    res.status(500).json({ message: "Error fetching summary report" });
+  }
+});
+
+
+
 
 
 // ✅ Use Auth Routes

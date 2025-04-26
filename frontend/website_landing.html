@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WasteManager | Smart Waste Solutions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <title>WasteRo | Smart Waste Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     :root {
-      --forest-green: #2F4A2C;
-      --sage-green: #788E7D;
-      --cream: #F7F0DC;
-      --terracotta: #9E5C30;
-      --bright-orange: #F5971D;
+      --dark-green: #13341E;
+      --fern-green: #4E7145;
+      --gamboge: #EB9C35;
+      --sinopia: #C4501B;
+      --sienna: #8A2B13;
+      --light-bg: #F8F9FA;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -23,186 +26,425 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: var(--sage-green);
-      color: var(--forest-green);
+      background-color: var(--light-bg);
+      color: var(--dark-green);
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
+    /* Header with glass morphism effect */
     header {
-      background-color: var(--forest-green);
-      color: var(--cream);
-      padding: 1.5rem 3rem;
+      background: rgba(19, 52, 30, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      padding: 1.2rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
+      position: fixed;
+      width: 100%;
       top: 0;
-      z-index: 999;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      animation: slideDown 1s ease-out forwards;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideDown 0.8s ease-out forwards;
+    }
+
+    .logo h2 {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
     }
 
     nav a {
-      margin: 0 1rem;
-      color: var(--cream);
+      margin: 0 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+      font-size: 0.95rem;
     }
 
     nav a:hover {
-      color: var(--bright-orange);
+      color: var(--gamboge);
     }
 
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--gamboge);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .signin-btn {
+      background-color: var(--gamboge);
+      padding: 0.7rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      color: var(--dark-green);
+      transition: var(--transition);
+      margin-left: 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(235, 156, 53, 0.3);
+    }
+
+    .signin-btn:hover {
+      background-color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(235, 156, 53, 0.4);
+    }
+
+    /* Hero Section */
     .hero {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background-color: var(--cream);
-      padding: 4rem 2rem;
-      animation: fadeIn 1.5s ease;
+      background: linear-gradient(135deg, var(--fern-green) 0%, var(--dark-green) 100%);
+      padding: 8rem 2rem 5rem;
+      color: white;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
     }
 
     .hero-text {
       flex: 1 1 500px;
       padding: 2rem;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-text h1 {
-      font-size: 3rem;
-      color: var(--terracotta);
-      margin-bottom: 1rem;
+      font-size: 3.2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      animation: fadeInUp 1s ease both;
     }
 
     .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: var(--forest-green);
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      font-weight: 300;
+      animation: fadeInUp 1s ease 0.2s both;
     }
 
     .cta-button {
-      background-color: var(--bright-orange);
-      color: white;
-      padding: 1rem 2rem;
+      background-color: var(--gamboge);
+      color: var(--dark-green);
+      padding: 1rem 2.8rem;
       border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: bold;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(235, 156, 53, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fadeInUp 1s ease 0.4s both;
     }
 
     .cta-button:hover {
-      background-color: var(--terracotta);
-      transform: scale(1.05);
+      background-color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(235, 156, 53, 0.5);
     }
 
     .hero-image {
       flex: 1 1 400px;
       padding: 2rem;
-      animation: zoomIn 1.8s ease;
+      position: relative;
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
     }
 
     .hero-image img {
       max-width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border: 4px solid rgba(255,255,255,0.15);
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+      transition: var(--transition);
     }
 
+    .hero-image:hover img {
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    }
+
+    /* About Section */
     .about {
-  background: linear-gradient(135deg, #F7F0DC 10%, #e0ded3 100%);
-  padding: 6rem 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.about::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  width: 80%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(6px);
-  border-radius: 30px;
-  transform: translateX(-50%);
-  z-index: 1;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-.about h2 {
-  position: relative;
-  z-index: 2;
-  color: var(--forest-green);
-  font-size: 2.8rem;
-  margin-bottom: 2rem;
-}
-
-.about p {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  margin: auto;
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: #333;
-  padding: 1.5rem 2rem;
-}
-
-
-    .features {
-      background-color: var(--cream);
-      padding: 4rem 2rem;
+      background-color: white;
+      padding: 6rem 2rem;
       text-align: center;
-      animation: fadeIn 2s ease;
+      position: relative;
+    }
+
+    .about h2 {
+      color: var(--dark-green);
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .about h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -10px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+      border-radius: 2px;
+    }
+
+    .about p {
+      max-width: 900px;
+      margin: 2rem auto;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--dark-green);
+      padding: 1.5rem 2rem;
+    }
+
+    /* Stats Counter */
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 3rem auto;
+      max-width: 1000px;
+    }
+
+    .stat-item {
+      background: var(--light-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      min-width: 200px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(19, 52, 30, 0.1);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--fern-green);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--fern-green), var(--dark-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      color: var(--dark-green);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Features Section */
+    .features {
+      background-color: var(--light-bg);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .features::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234e7145' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .features-content {
+      position: relative;
+      z-index: 1;
     }
 
     .features h2 {
-      color: var(--terracotta);
-      margin-bottom: 2rem;
-      font-size: 2.3rem;
+      color: var(--dark-green);
+      margin-bottom: 4rem;
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .features h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -10px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+      border-radius: 2px;
     }
 
     .cards {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
+      gap: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .card {
       background-color: white;
-      border-radius: 20px;
+      border-radius: 16px;
       width: 300px;
-      padding: 2rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 8px 30px rgba(19, 52, 30, 0.08);
+      transition: var(--transition);
+      border-top: 4px solid var(--fern-green);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(78, 113, 69, 0.1) 0%, rgba(19, 52, 30, 0.05) 100%);
+      z-index: -1;
+      opacity: 0;
+      transition: var(--transition);
     }
 
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(19, 52, 30, 0.15);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--fern-green);
+      transition: var(--transition);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1);
+      color: var(--gamboge);
     }
 
     .card h3 {
-      color: var(--bright-orange);
-      margin-bottom: 1rem;
+      color: var(--sinopia);
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: 600;
     }
 
     .card p {
-      color: var(--forest-green);
+      color: var(--dark-green);
       font-size: 1rem;
+      font-weight: 400;
     }
 
+    /* Footer */
     footer {
-      background-color: var(--forest-green);
-      color: var(--cream);
+      background-color: var(--dark-green);
+      color: white;
       text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 4rem;
+      padding: 4rem 1rem;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, var(--gamboge), var(--sinopia));
+    }
+
+    footer p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-weight: 300;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--gamboge);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     /* Animations */
@@ -217,43 +459,93 @@
     }
 
     @keyframes fadeInUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes zoomIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
 
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+      }
+      
+      nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav a {
+        margin: 0 0.8rem 0.5rem;
+        font-size: 0.9rem;
+      }
+      
       .hero {
         flex-direction: column-reverse;
         text-align: center;
+        padding: 6rem 1rem 3rem;
+        min-height: auto;
       }
-
+      
+      .hero-text h1 {
+        font-size: 2.4rem;
+      }
+      
+      .hero-text p {
+        font-size: 1.1rem;
+      }
+      
       .cards {
         flex-direction: column;
         align-items: center;
+        gap: 1.5rem;
+      }
+      
+      .about, .features {
+        padding: 4rem 1rem;
+      }
+      
+      .about h2, .features h2 {
+        font-size: 2rem;
+      }
+
+      .stat-item {
+        min-width: 150px;
+        padding: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .signin-btn {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
       }
     }
 
 
-    .signin-btn {
-  background-color: var(--bright-orange);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-weight: 600;
-  color: white;
-  transition: background-color 0.3s ease;
-}
 
-.signin-btn:hover {
-  background-color: var(--terracotta);
-}
-
-
-
+    
   </style>
 </head>
 <body>
@@ -261,11 +553,10 @@
   <header>
     <div class="logo"><h2>WasteRo</h2></div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#about">About</a>
+      <a href="website_landing.html">Home</a>
+      <a href="aboutus.html">About Us</a>
       <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
-      <a href="signup.html" class="signin-btn">Sign In</a>
+      <a href="signup.html" class="signin-btn">Sign Up</a>
     </nav>
   </header>
   
@@ -275,7 +566,9 @@
       <h1>Smart Waste Management for Restaurants</h1>
       <p>Track, donate, and manage food waste efficiently with our intuitive and eco-friendly platform.</p>
       <a href="index.html">
-        <button class="cta-button">Get Started</button>
+        <button class="cta-button">
+          <i class="fas fa-rocket"></i> Get Started
+        </button>
       </a>
     </div>
     <div class="hero-image">
@@ -286,44 +579,106 @@
   <section class="about" id="about">
     <h2>About Us</h2>
     <p>
-      WasteManager is more than a tool—it's a movement toward smarter, more sustainable food practices. Our platform empowers restaurants to take control of their food waste by turning excess into opportunity. Whether it's reducing carbon footprint, aiding the community, or improving operational efficiency, we offer a purpose-driven solution that fits right into your workflow.<br/><br/>
-      Founded by passionate technologists and environmental advocates, our goal is to bridge the gap between surplus and scarcity. Every feature, every dashboard, and every donation made through WasteManager reflects our commitment to a greener planet and a fairer world. Join us in reshaping the future—one plate at a time.
-
-      
+      WasteRo is more than a tool—it's a movement toward smarter, more sustainable food practices. Our platform empowers restaurants to take control of their food waste by turning excess into opportunity. Whether it's reducing carbon footprint, aiding the community, or improving operational efficiency, we offer a purpose-driven solution that fits right into your workflow.
     </p>
-
-
-    
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" data-count="500">0</div>
+        <div class="stat-label">Restaurants Partnered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="12000">0</div>
+        <div class="stat-label">Meals Donated</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="85">0</div>
+        <div class="stat-label">Waste Reduction %</div>
+      </div>
+    </div>
+    <p>
+      Founded by passionate technologists and environmental advocates, our goal is to bridge the gap between surplus and scarcity. Every feature, every dashboard, and every donation made through WasteRo reflects our commitment to a greener planet and a fairer world. Join us in reshaping the future—one plate at a time.
+    </p>
   </section>
 
-  
-  
-
   <section class="features" id="features">
-    <h2>Our Features</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Track Waste</h3>
-        <p>Monitor your food waste daily, weekly, or monthly with interactive dashboards and charts.</p>
-      </div>
-      <div class="card">
-        <h3>Food Donation</h3>
-        <p>List surplus food instantly and connect with NGOs to make timely donations effortlessly.</p>
-      </div>
-      <div class="card">
-        <h3>Pickup Services</h3>
-        <p>Schedule eco-friendly waste collection and ensure safe disposal through certified partners.</p>
-      </div>
-      <div class="card">
-        <h3>Reports & Insights</h3>
-        <p>Export beautiful PDF or CSV reports and discover actionable insights from your data.</p>
+    <div class="features-content">
+      <h2>Our Features</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Track Waste</h3>
+          <p>Monitor your food waste daily, weekly, or monthly with interactive dashboards and charts.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3>Food Donation</h3>
+          <p>List surplus food instantly and connect with NGOs to make timely donations effortlessly.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3>Pickup Services</h3>
+          <p>Schedule eco-friendly waste collection and ensure safe disposal through certified partners.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>Reports & Insights</h3>
+          <p>Export beautiful PDF or CSV reports and discover actionable insights from your data.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer id="contact">
-    <p>&copy; 2025 WasteManager — Built with ❤️ for a sustainable tomorrow.</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>Join our mission to reduce food waste and create sustainable solutions for restaurants worldwide.</p>
+    <p class="copyright">&copy; 2025 WasteRo — Built with <i class="fas fa-heart" style="color: var(--sinopia);"></i> for a sustainable tomorrow.</p>
   </footer>
+
+  <script>
+    // Simple counter animation for stats
+    const counters = document.querySelectorAll('.stat-number');
+    const speed = 200;
+
+    function animateCounters() {
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        const increment = target / speed;
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(animateCounters, 1);
+        } else {
+          counter.innerText = target;
+        }
+      });
+    }
+
+    // Start animation when stats section is in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(document.querySelector('.stats'));
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,134 @@
+/* ==== Base styles (unchanged) ==== */
+body {
+  font-family: 'Georgia', serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #56ab2f, #a8e063);
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ==== Card Styling ==== */
+.card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+/* ==== Buttons ==== */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn-green {
+  background: #56ab2f;
+  color: white;
+}
+.btn-orange {
+  background: #f9a825;
+  color: white;
+}
+.btn-blue {
+  background: #039be5;
+  color: white;
+}
+
+/* ==== Header Titles ==== */
+.role-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* ==== Section Containers ==== */
+.section {
+  margin-bottom: 2rem;
+}
+
+/* ==== Role-Based Styling ==== */
+
+/* Admin */
+.admin .container {
+  border-left: 8px solid #56ab2f;
+}
+.admin .card {
+  border-color: #c6f6d5;
+}
+.admin .role-title {
+  color: #388e3c;
+}
+
+/* NGO */
+.ngo .container {
+  border-left: 8px solid #f9a825;
+}
+.ngo .card {
+  border-color: #fff3cd;
+}
+.ngo .role-title {
+  color: #f57f17;
+}
+
+/* Waste Collector */
+.collector .container {
+  border-left: 8px solid #039be5;
+}
+.collector .card {
+  border-color: #bbdefb;
+}
+.collector .role-title {
+  color: #0277bd;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.table th, .table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+.table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+/* Forms */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* Footer (if needed) */
+.footer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #666;
+  padding: 1rem 0;
+}
